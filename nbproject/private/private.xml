@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/index.jsp</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/registro.jsp</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/login.jsp</file>
             <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Modelos/Modelo_ConexionDb.java</file>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Modelos/Modelo_Acceso.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Controladores/Ctrl_Registro.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/general.jsp</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Modelos/Modelo_Usuario.java</file>
             <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Controladores/Ctrl_Login.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Classes/Oferta.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Controladores/Ctrl_Oferta.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/index.jsp</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Modelos/Modelo_Oferta.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/src/java/Modelos/Modelo_Ingreso.java</file>
+            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb/web/Admin/admin.jsp</file>
         </group>
     </open-files>
 </project-private>

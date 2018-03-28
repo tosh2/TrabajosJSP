@@ -4,9 +4,25 @@
         <servlet-name>Ctrl_Login</servlet-name>
         <servlet-class>Controladores.Ctrl_Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ctrl_Registro</servlet-name>
+        <servlet-class>Controladores.Ctrl_Registro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Ctrl_Oferta</servlet-name>
+        <servlet-class>Controladores.Ctrl_Oferta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Ctrl_Login</servlet-name>
         <url-pattern>/Ctrl_Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ctrl_Registro</servlet-name>
+        <url-pattern>/Ctrl_Registro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ctrl_Oferta</servlet-name>
+        <url-pattern>/Ctrl_Oferta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

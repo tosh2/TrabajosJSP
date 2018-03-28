@@ -33,5 +33,15 @@
             <hr>
         </div>
         <h1>Hello World! As sudo</h1>
+        <br>
+        <a href="../index.jsp?cerrar=true">Crear Oferta</a>
+        <br>
+        <a href="../index.jsp?cerrar=true">Mis Ofertas</a>
+        <br>
+        <a href="../index.jsp?cerrar=true">Mi Perfil</a>
+        <br>
+        <a href="../index.jsp?cerrar=true">Mi Empresa</a>
+        
+        <br>
     </body>
 </html>

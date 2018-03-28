@@ -12,14 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Modelos.Modelo_Ingreso;  //  Importamos modelo de acceso (Login)
-import javax.servlet.RequestDispatcher;
+import Modelos.Modelo_Oferta;
 
 /**
  *
  * @author tosh
  */
-public class Ctrl_Login extends HttpServlet {
+public class Ctrl_Oferta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,36 +33,9 @@ public class Ctrl_Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            /*
-            txt_usuario, y txt_password, son parametros enviados desde: index.jsp
-            "usuario", y "tipo" nombres de variables
-            setAttribute es JSP para sesion "nombre"
-            
-             */
-            String usuario;
-            String password;
-            
-            int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
-
-            Modelo_Ingreso log = new Modelo_Ingreso();
-            RequestDispatcher rd    =   null;
-            
-            
-            if(request.getParameter("btn_ingresar") != null){
-                usuario     =   request.getParameter("txt_usuario");
-                password    =   request.getParameter("txt_password");
-                //nivel = acc.validar(nombre, contra);
-                tipo = log.validarAcceso(usuario, password);
-                
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("tipo", tipo);
-                
-                rd  =   request.getRequestDispatcher("login.jsp");
-                
-            }
-            
-            rd.forward(request, response);  //direccionamos al index.jsp
+            /* TODO output your page here. You may use following sample code. */
+            Modelo_Oferta ofertaModel = new Modelo_Oferta();
+            request.setAttribute("ofertas", ofertaModel.obtenerOfertas());
             
         }
     }
