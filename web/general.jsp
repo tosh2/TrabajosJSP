@@ -11,22 +11,22 @@
 <%@page import="java.util.*" %>
 
 <%
-            /*
-                Utilizado con: Ctrl_Login
-            "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
-            */
-            HttpSession sesion = request.getSession();
+    /*
+    Utilizado con: Ctrl_Login
+    "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
+    */
+    HttpSession sesion = request.getSession();
             
-            int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
-            if(request.getAttribute("tipo")!=null){
-                tipo = (Integer)request.getAttribute("tipo");
+    int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
+    if(request.getAttribute("tipo")!=null){
+        tipo = (Integer)request.getAttribute("tipo");
                 //if(tipo == 1){  //  ofertante
-                    sesion.setAttribute("usuario", request.getAttribute("usuario"));
-                    sesion.setAttribute("tipo", tipo);
+        sesion.setAttribute("usuario", request.getAttribute("usuario"));
+        sesion.setAttribute("tipo", tipo);
                   //  response.sendRedirect("Admin/admin.jsp");
                 //}
-            }  
-        %>
+    }  
+%>
 
 <!DOCTYPE html>
 <html>
@@ -42,8 +42,17 @@
             <hr>
         </div>
         <h1>Bienvenido A General</h1>
-        
+        <a href="perfil.jsp">Perfil</a>
+        <br>
+        <a href="">---</a>
+        <br>
+        <a href="">--</a>
+        <br>
         <%
+            /*
+                tosh - Obtenemos una lista del modelo "Oferta",
+                       e iteramos sobre la lista
+            */
             Modelo_Oferta ofertasModel = new Modelo_Oferta();
             List<Oferta> listaOfertas = ofertasModel.obtenerOfertas();
             Iterator<Oferta> it = listaOfertas.iterator();
@@ -52,20 +61,27 @@
             while(it.hasNext()){
                 of = it.next();
             %>
-    <td>
-        <%= of.getOferta_empresa() %>
-    </td>
+    
     <td>
         <%= of.getOferta() %>
-    </td>
-    <td>
-        <%= of.getUsuario() %>
     </td>
     <td>
         <%= of.getTitulo() %>
     </td>
     <td>
         <%= of.getDescripcion() %>
+    </td>
+    <td>
+        <%= of.getNumeroPlazas()%>
+    </td>
+    <td>
+        <%= of.getNivelExperiencia()%>
+    </td>
+    <td>
+        <%= of.getSalario()%>
+    </td>
+    <td>
+        <%= of.getVehiculo()%>
     </td>
         <%
             }

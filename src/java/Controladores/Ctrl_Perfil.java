@@ -5,21 +5,20 @@
  */
 package Controladores;
 
+import Modelos.Modelo_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Modelos.Modelo_Ingreso;  //  Importamos modelo de acceso (Login)
-import javax.servlet.RequestDispatcher;
-
 /**
  *
  * @author tosh
  */
-public class Ctrl_Login extends HttpServlet {
+public class Ctrl_Perfil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,36 +33,36 @@ public class Ctrl_Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-
-            /*
-            txt_usuario, y txt_password, son parametros enviados desde: index.jsp
-            "usuario", y "tipo" nombres de variables
-            setAttribute es JSP para sesion "nombre"
+            /* TODO output your page here. You may use following sample code. */
             
-             */
-            String usuario;
+                        Modelo_Usuario regModel = new Modelo_Usuario();
+            
+            RequestDispatcher rd = null;
+            int resultado = 0;
+            String nombre;
+            String apellido;
+            String correo;
             String password;
-            
-            int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
-
-            Modelo_Ingreso log = new Modelo_Ingreso();
-            RequestDispatcher rd    =   null;
-            
-            
-            if(request.getParameter("btn_ingresar") != null){
-                usuario     =   request.getParameter("txt_usuario");
-                password    =   request.getParameter("txt_password");
-                //nivel = acc.validar(nombre, contra);
-                tipo = log.validarAcceso(usuario, password);
+            String password_conf;
+            String edad;
+            String sexo;
+            String tipo_usuario;
+            if(request.getParameter("btn_guardar") != null){
+                nombre = request.getParameter("txt_nombre");
+                apellido = request.getParameter("txt_apellido");
+                correo = request.getParameter("txt_correo");
+                password = request.getParameter("txt_password");
+                password_conf = request.getParameter("txt_password_conf");
+                edad = request.getParameter("txt_edad");
+                sexo = request.getParameter("sexo");
+                tipo_usuario = request.getParameter("tipo");
                 
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("tipo", tipo);
-
-                rd  =   request.getRequestDispatcher("login.jsp");
+                resultado = regModel.actualizarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
                 
+                rd = request.getRequestDispatcher("perfil.jsp");
             }
             
-            rd.forward(request, response);  //direccionamos al index.jsp
+            rd.forward(request, response);
             
         }
     }

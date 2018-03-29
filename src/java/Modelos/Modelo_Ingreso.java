@@ -27,7 +27,7 @@ public class Modelo_Ingreso {
         int tipoUsuario = 0;
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
-            conn = DriverManager.getConnection(db.getUrl(),db.getUser(),db.getContra());
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
             sql = "SELECT tipo FROM usuario WHERE correo='"+usuario+"'AND password='"+password+"';";
             pst=conn.prepareStatement(sql);
             

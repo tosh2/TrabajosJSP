@@ -10,14 +10,14 @@ package Modelos;
  */
 public class Modelo_ConexionDb {
     private String url;    
-    private String user;   
-    private String contra;
+    private String userdb;   
+    private String passdb;
     private String driver;
 
     public Modelo_ConexionDb(){
         this.url    =   "jdbc:mysql://localhost:3306/analisis";
-        this.user   =   "root";
-        this.contra =   "";
+        this.userdb   =   "root";
+        this.passdb =   "";
         this.driver =   "com.mysql.jdbc.Driver";
     }
     
@@ -31,15 +31,15 @@ public class Modelo_ConexionDb {
     /**
      * @return the user
      */
-    public String getUser() {
-        return user;
+    public String getUserdb() {
+        return userdb;
     }
 
     /**
      * @return the contra
      */
-    public String getContra() {
-        return contra;
+    public String getPassdb() {
+        return passdb;
     }
 
     /**

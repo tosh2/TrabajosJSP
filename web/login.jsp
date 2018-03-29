@@ -9,8 +9,9 @@
 
 <%
             /*
+                tosh - 
                 Utilizado con: Ctrl_Login
-            "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
+                "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
             */
             HttpSession sesion = request.getSession();
             
@@ -40,7 +41,7 @@
         </div>
         <h1>Inicia Sesion</h1>
         
-        <!-- 
+        <!-- tosh
                 Ctrl_Login = nombre del Servlet/Controlador
                 txt_usuario, txt_password se envian como parametros al servlet
                 btn_ingresar realiza la accion, y se compara en servlet

@@ -9,8 +9,8 @@
 
 <%
     /*
-        Utilizado con: Ctrl_Login
-        "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
+        Utilizado con: Ctrl_Registro
+        "nivel", y "nombre", son atributos enviados desde: Ctrl_Registro
     */
     HttpSession sesion = request.getSession();
     int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
@@ -39,7 +39,9 @@
             <hr>
         </div>
         <h1>Crear Cuenta</h1>
-        
+        <!--    tosh
+                Ctrl_Registro = controlador
+        -->
         <form action="Ctrl_Registro" method="POST"> 
             Nombre: <br>
             <input type="text" name="txt_nombre" >

@@ -30,14 +30,15 @@ public class Modelo_Oferta {
         List ofertas = new ArrayList();
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
-            conn = DriverManager.getConnection(db.getUrl(),db.getUser(),db.getContra());
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
             sql = "SELECT * FROM oferta;";
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             
             while(rs.next()){
-                Oferta nuevaOferta = new Oferta(rs.getString("oferta-empresa"),rs.getString("oferta"),
-                                                rs.getString("usuario"),rs.getString("titulo"),rs.getString("descripcion"));
+                Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
                 ofertas.add(nuevaOferta);
             }
             

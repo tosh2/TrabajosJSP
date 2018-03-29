@@ -10,33 +10,23 @@ package Classes;
  * @author tosh
  */
 public class Oferta {
-    private String oferta_empresa;
     private String oferta;
-    private String usuario;
     private String titulo;
     private String descripcion;
+    private String numeroPlazas;
+    private String nivelExperiencia;
+    private String salario;
+    private String vehiculo;
 
-    public Oferta(String oferta_empresa, String oferta, String usuario, String titulo, String descripcion){
-        this.oferta_empresa =   oferta_empresa;
-        this.oferta         =   oferta;
-        this.usuario        =   usuario;
-        this.titulo         =   titulo;
-        this.descripcion    =   descripcion;
-        
-    }
-    
-    /**
-     * @return the oferta_empresa
-     */
-    public String getOferta_empresa() {
-        return oferta_empresa;
-    }
-
-    /**
-     * @param oferta_empresa the oferta_empresa to set
-     */
-    public void setOferta_empresa(String oferta_empresa) {
-        this.oferta_empresa = oferta_empresa;
+    public Oferta(String oferta, String titulo, String descripcion,
+                    String numeroPlazas, String nivelExperiencia, String salario, String vehiculo){
+        this.oferta             =   oferta;
+        this.titulo             =   titulo;
+        this.descripcion        =   descripcion;
+        this.numeroPlazas       =   numeroPlazas;
+        this.nivelExperiencia   =   nivelExperiencia;
+        this.salario            =   salario;
+        this.vehiculo           =   vehiculo;
     }
 
     /**
@@ -45,40 +35,12 @@ public class Oferta {
     public String getOferta() {
         return oferta;
     }
-
-    /**
-     * @param oferta the oferta to set
-     */
-    public void setOferta(String oferta) {
-        this.oferta = oferta;
-    }
-
-    /**
-     * @return the usuario
-     */
-    public String getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * @param usuario the usuario to set
-     */
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
+    
     /**
      * @return the titulo
      */
     public String getTitulo() {
         return titulo;
-    }
-
-    /**
-     * @param titulo the titulo to set
-     */
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 
     /**
@@ -89,9 +51,37 @@ public class Oferta {
     }
 
     /**
-     * @param descripcion the descripcion to set
+     * @return the numeroPlazas
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public String getNumeroPlazas() {
+        return numeroPlazas;
+    }
+
+    /**
+     * @return the nivelExperiencia
+     */
+    public String getNivelExperiencia() {
+        return nivelExperiencia;
+    }
+
+    /**
+     * @return the salario
+     */
+    public String getSalario() {
+        return salario;
+    }
+
+    /**
+     * @param salario the salario to set
+     */
+    public void setSalario(String salario) {
+        this.salario = salario;
+    }
+
+    /**
+     * @return the vehiculo
+     */
+    public String getVehiculo() {
+        return vehiculo;
     }
 }
