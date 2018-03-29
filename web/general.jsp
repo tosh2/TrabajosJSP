@@ -44,7 +44,7 @@
         <h1>Bienvenido A General</h1>
         <a href="perfil.jsp">Perfil</a>
         <br>
-        <a href="">---</a>
+        <a href="oferta.jsp">Mis Ofertas</a>
         <br>
         <a href="">--</a>
         <br>

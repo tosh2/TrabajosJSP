@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Classes.Oferta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Modelos.Modelo_Oferta;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -35,7 +37,32 @@ public class Ctrl_Oferta extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             Modelo_Oferta ofertaModel = new Modelo_Oferta();
-            request.setAttribute("ofertas", ofertaModel.obtenerOfertas());
+            RequestDispatcher rd = null;
+            int resultado = 0;
+            
+            String titulo;
+            String descripcion;
+            String numeroPlazas;
+            String nivelExperiencia;
+            String salario;
+            String vehiculo;
+            
+            if(request.getParameter("btn_crear") != null){
+                titulo              = request.getParameter("txt_titulo");
+                descripcion         = request.getParameter("txt_descripcion");
+                numeroPlazas        = request.getParameter("txt_numeroPlazas");
+                nivelExperiencia    = request.getParameter("txt_nivelExperiencia");
+                salario             = request.getParameter("txt_salario");
+                vehiculo            = request.getParameter("txt_vehiculo");
+                
+                
+                resultado = ofertaModel.crearOferta(titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo);
+                
+                rd = request.getRequestDispatcher("oferta.jsp");
+            }
+            
+            rd.forward(request, response);
+  
             
         }
     }

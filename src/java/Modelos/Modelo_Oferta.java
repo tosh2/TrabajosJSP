@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Classes.Oferta;
+import java.sql.SQLException;
 
 /**
  *
@@ -48,6 +49,24 @@ public class Modelo_Oferta {
         } catch (Exception e) {
         }
         return ofertas;
+    }
+    
+    public int crearOferta(String titulo, String descripcion, String numeroPlazas, String nivelExperiencia, String salario, String vehiculo){
+        int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
+        try {
+             Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "INSERT INTO `oferta` (`oferta`, `titulo`, `descripcion`, `numeroPlazas`, `nivelExperiencia`, `salario`, `vehiculo`)"
+                + " VALUES (NULL,'"+titulo+"','"+descripcion+"','"+numeroPlazas+"','"+nivelExperiencia+"','"+salario+"','"+vehiculo+"');";
+            pst=conn.prepareStatement(sql);
+            rquery  =   pst.executeUpdate();
+            conn.close();
+            System.out.println("Valor query "+rquery);
+            return rquery;
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Grupo 8-Error: "+e);
+        }
+        return 0;
     }
     
 }
