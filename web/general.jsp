@@ -83,6 +83,9 @@
     <td>
         <%= of.getVehiculo()%>
     </td>
+    
+    <br>
+    
         <%
             }
         %>

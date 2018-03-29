@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controladores;
 
 import Classes.Oferta;
@@ -35,11 +30,14 @@ public class Ctrl_Oferta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            Modelo_Oferta ofertaModel = new Modelo_Oferta();
-            RequestDispatcher rd = null;
-            int resultado = 0;
             
+            RequestDispatcher rd = null;
+            
+            Modelo_Oferta ofertaModel = new Modelo_Oferta();
+            
+            int resultado = 0;  /*  tosh - Verifica si CRUD se ejecuto correctamente: 0 = error */
+                                
+                                /*  atributos de oferta */
             String titulo;
             String descripcion;
             String numeroPlazas;
@@ -47,7 +45,12 @@ public class Ctrl_Oferta extends HttpServlet {
             String salario;
             String vehiculo;
             
+                        /*  obtenemos Correo/Usuario actual */
+            String usuario = (String)request.getSession().getAttribute("usuario");
+            
             if(request.getParameter("btn_crear") != null){
+                
+                        /*  obtenemos valores de atributos de oferta    */
                 titulo              = request.getParameter("txt_titulo");
                 descripcion         = request.getParameter("txt_descripcion");
                 numeroPlazas        = request.getParameter("txt_numeroPlazas");
@@ -55,15 +58,15 @@ public class Ctrl_Oferta extends HttpServlet {
                 salario             = request.getParameter("txt_salario");
                 vehiculo            = request.getParameter("txt_vehiculo");
                 
-                
-                resultado = ofertaModel.crearOferta(titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo);
+                        /*  Creamos la oferta **verificar si es correcta o no   */
+                resultado = ofertaModel.crearOferta(usuario,titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo);
                 
                 rd = request.getRequestDispatcher("oferta.jsp");
+                
             }
             
             rd.forward(request, response);
   
-            
         }
     }
 
