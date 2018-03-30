@@ -67,12 +67,14 @@ public class Ctrl_Registro extends HttpServlet {
                 out.println(sexo);
                 out.println(tipo_usuario);
                 if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
+                    System.out.println("hola aqui !!!");
                     resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
                     request.setAttribute("usuario", correo);
                     request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
                     rd = request.getRequestDispatcher("registro.jsp");
                 }else{
                     //si ya existe, entonces no lo guarda
+                    System.out.println("hola aqui !!!");
                     request.setAttribute("error", "error, el correo ya existe");
                     rd = request.getRequestDispatcher("registro.jsp");
                 }

@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/daniel/github/TrabajosJSP/src/java/Controladores/Ctrl_Registro.java</file>
-            <file>file:/home/daniel/github/TrabajosJSP/src/java/Modelos/Modelo_Usuario.java</file>
-            <file>file:/home/daniel/github/TrabajosJSP/web/general.jsp</file>
-            <file>file:/home/daniel/github/TrabajosJSP/web/registro.jsp</file>
-            <file>file:/home/daniel/github/TrabajosJSP/src/java/Modelos/Modelo_ConexionDb.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

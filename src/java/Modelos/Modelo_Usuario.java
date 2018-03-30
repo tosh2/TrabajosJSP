@@ -73,7 +73,7 @@ public class Modelo_Usuario {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM Usuario WHERE correo='"+correo+"';";
+            sql = "SELECT * FROM usuario WHERE correo='"+correo+"';";
             pst=conn.prepareStatement(sql);            
             rs  =   pst.executeQuery();
             while(rs.next()){
