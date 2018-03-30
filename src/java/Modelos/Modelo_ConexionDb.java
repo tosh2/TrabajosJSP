@@ -8,17 +8,15 @@ package Modelos;
  * contra = contraseña de usuario de BD
  * driver = Driver de Java con MySQL
  */
-public class Modelo_ConexionDb {
-    private String url;    
-    private String userdb;   
-    private String passdb;
-    private String driver;
+public class Modelo_ConexionDb {    /*  tosh - Editar variables de clase para conexion  */
+    private String          url; 
+    private String          driver;
+    private final String    userdb  = "root";   
+    private final String    passdb  = "";
+    private final String    port    = ":3306";
 
     public Modelo_ConexionDb(){
-        this.url    =   "jdbc:mysql://localhost:3306/analisis";
-        this.userdb   =   "root";
-        this.passdb =   "";
-        //this.passdb =   "123456";
+        this.url    =   "jdbc:mysql://localhost"+port+"/analisis";
         this.driver =   "com.mysql.jdbc.Driver";
     }
     

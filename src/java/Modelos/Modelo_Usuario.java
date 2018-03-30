@@ -54,7 +54,7 @@ public class Modelo_Usuario {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM Usuario WHERE correo='"+correo+"';";
+            sql = "SELECT * FROM usuario WHERE correo='"+correo+"';";
             pst=conn.prepareStatement(sql);
             
             rs  =   pst.executeQuery();
@@ -94,9 +94,9 @@ public class Modelo_Usuario {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "UPDATE 'usuario' SET "
-                + " 'nombre'='"+nombre+"','apellido'='"+apellido+"','correo'='"+correo+"','password'='"+password+"','edad'='"+edad+"','sexo'='"+sexo+"','tipo'='"+tipo_usuario+"'"
-                + " WHERE 'correo'='"+correo+"';";
+            sql = "UPDATE usuario SET "
+                + " nombre='"+nombre+"',apellido='"+apellido+"',correo='"+correo+"',password='"+password+"',edad='"+edad+"',sexo='"+sexo+"',tipo='"+tipo_usuario+"'"
+                + " WHERE correo='"+correo+"';";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();
             conn.close();

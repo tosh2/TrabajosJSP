@@ -32,7 +32,7 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM Oferta;";
+            sql = "SELECT * FROM oferta;";
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             
@@ -63,7 +63,7 @@ public class Modelo_Oferta {
             
             /*  Obtenemos id(usuario) de la persona */
             PreparedStatement pstUsuario;
-            String sql_usuario  =   "SELECT `usuario` FROM `usuario` WHERE `correo`='"+correo+"';";
+            String sql_usuario  =   "SELECT usuario FROM usuario WHERE correo='"+correo+"';";
             
             pstUsuario =   conn.prepareStatement(sql_usuario);
             ResultSet rsUsuario =   pstUsuario.executeQuery();
@@ -121,7 +121,7 @@ public class Modelo_Oferta {
             
             /*  Creacion De Oferta (Tabla 'oferta')*/
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "INSERT INTO `oferta` (`oferta`, `titulo`, `descripcion`, `numeroPlazas`, `nivelExperiencia`, `salario`, `vehiculo`)"
+            sql = "INSERT INTO oferta (oferta, titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo)"
                 + " VALUES (NULL,'"+titulo+"','"+descripcion+"','"+numeroPlazas+"','"+nivelExperiencia+"','"+salario+"','"+vehiculo+"');";
             
             pst=conn.prepareStatement(sql, new String[]{"oferta"});
@@ -136,7 +136,7 @@ public class Modelo_Oferta {
 
             /*  Obtenemos id(usuario) de la persona que hizo la oferta*/
             PreparedStatement pstUsuario;
-            String sql_usuario  =   "SELECT `usuario` FROM `usuario` WHERE `correo`='"+correo+"';";
+            String sql_usuario  =   "SELECT usuario FROM usuario WHERE correo='"+correo+"';";
             
             pstUsuario =   conn.prepareStatement(sql_usuario);
             ResultSet rsUsuario =   pstUsuario.executeQuery();
@@ -149,7 +149,7 @@ public class Modelo_Oferta {
             
             /*  Insercion de llaves en: ofertausuario*/
             PreparedStatement pstOfertaUsuario;
-            String sql_ofertaUsuario  =   "INSERT INTO `ofertausuario` (`fecha`, `Usuario_usuario`, `Oferta_oferta`)"
+            String sql_ofertaUsuario  =   "INSERT INTO ofertausuario (fecha, Usuario_usuario, Oferta_oferta)"
                                             +"VALUES (NULL,'"+usuario+"','"+oferta+"');";
             
             pstOfertaUsuario =   conn.prepareStatement(sql_ofertaUsuario);
