@@ -31,9 +31,11 @@ public class Modelo_Usuario {
         //  INSERT INTO 'usuario' ('usuario', 'nombre', 'apellido', 'correo', 'password', 'edad', 'sexo', 'tipo') VALUES (NULL, 'Carlos', 'Lopez', 'carlos@gmail.com', 'jdis123', '25', '1', '2');
         int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
         try {
-             Class.forName(db.getDriver());  //Crea Conexion con DB
+            Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "INSERT INTO Usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
+
+            sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
+
                 + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"');";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();

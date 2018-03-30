@@ -13,3 +13,5 @@
         daniel
 
     Observaciones ...
+        Script Utilizado para BD            ->  /Recursos/BD-Script.sql
+        Controladores, Modelos, y Clases    ->  /src/java

@@ -25,7 +25,7 @@
         sesion.setAttribute("tipo", tipo);
                   //  response.sendRedirect("Admin/admin.jsp");
                 //}
-    }  
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +48,7 @@
             <select name="">
                 <%
                     Modelo_Oferta ofertasModel = new Modelo_Oferta();
-                    List<Oferta> listaOfertas = ofertasModel.obtenerOfertas();
+                    List<Oferta> listaOfertas = ofertasModel.obtenerOfertasPorUsuario((String)sesion.getAttribute("usuario"));
                     Iterator<Oferta> it = listaOfertas.iterator();
                     Oferta of = null;
                     

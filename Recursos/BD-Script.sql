@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `analisis`.`ofertaUsuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `analisis`.`ofertaUsuario` (
-  `fecha` DATE NOT NULL,
+  `fecha` DATE NULL,
   `Usuario_usuario` INT NOT NULL,
   `Oferta_oferta` INT NOT NULL,
   PRIMARY KEY (`Usuario_usuario`, `Oferta_oferta`),
