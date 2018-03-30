@@ -28,12 +28,12 @@ public class Modelo_Usuario {
     */
     public int registrarUsuario(String nombre, String apellido, String correo, 
                                 String password, String edad, String sexo, String tipo_usuario){
-        //  INSERT INTO `usuario` (`usuario`, `nombre`, `apellido`, `correo`, `password`, `edad`, `sexo`, `tipo`) VALUES (NULL, 'Carlos', 'Lopez', 'carlos@gmail.com', 'jdis123', '25', '1', '2');
+        //  INSERT INTO 'usuario' ('usuario', 'nombre', 'apellido', 'correo', 'password', 'edad', 'sexo', 'tipo') VALUES (NULL, 'Carlos', 'Lopez', 'carlos@gmail.com', 'jdis123', '25', '1', '2');
         int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
         try {
              Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "INSERT INTO `usuario` (`usuario`, `nombre`, `apellido`, `correo`, `password`, `edad`, `sexo`, `tipo`)"
+            sql = "INSERT INTO Usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
                 + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"');";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();
@@ -41,6 +41,7 @@ public class Modelo_Usuario {
             System.out.println("Valor query "+rquery);
             return rquery;
         } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.toString());
         }
         
         return 0;
@@ -48,11 +49,10 @@ public class Modelo_Usuario {
     
     public Usuario obtenerInformacionUsuario(String correo){
         Usuario usuario =   null;
-
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM usuario WHERE correo='"+correo+"';";
+            sql = "SELECT * FROM Usuario WHERE correo='"+correo+"';";
             pst=conn.prepareStatement(sql);
             
             rs  =   pst.executeQuery();
@@ -68,16 +68,33 @@ public class Modelo_Usuario {
             return usuario;
         }
     }
-    
+    public boolean existeCorreo(String correo){
+        Usuario usuario =   null;
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT * FROM Usuario WHERE correo='"+correo+"';";
+            pst=conn.prepareStatement(sql);            
+            rs  =   pst.executeQuery();
+            while(rs.next()){
+                return true;
+            }
+            conn.close();
+            rs.close();
+            return false;
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
     public int actualizarUsuario(String nombre, String apellido, String correo, 
                                 String password, String edad, String sexo, String tipo_usuario){
         int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "UPDATE `usuario` SET "
-                + " `nombre`='"+nombre+"',`apellido`='"+apellido+"',`correo`='"+correo+"',`password`='"+password+"',`edad`='"+edad+"',`sexo`='"+sexo+"',`tipo`='"+tipo_usuario+"'"
-                + " WHERE `correo`='"+correo+"';";
+            sql = "UPDATE 'usuario' SET "
+                + " 'nombre'='"+nombre+"','apellido'='"+apellido+"','correo'='"+correo+"','password'='"+password+"','edad'='"+edad+"','sexo'='"+sexo+"','tipo'='"+tipo_usuario+"'"
+                + " WHERE 'correo'='"+correo+"';";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();
             conn.close();

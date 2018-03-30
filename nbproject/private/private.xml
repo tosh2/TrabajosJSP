@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/Nueva%20carpeta/TrabajosWeb/web/index.jsp</file>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/Nueva%20carpeta/TrabajosWeb/web/registro.jsp</file>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/Nueva%20carpeta/TrabajosWeb/web/perfil.jsp</file>
-            <file>file:/C:/Users/tosh/Documents/NetBeansProjects/Nueva%20carpeta/TrabajosWeb/web/oferta.jsp</file>
+            <file>file:/home/daniel/github/TrabajosJSP/src/java/Controladores/Ctrl_Registro.java</file>
+            <file>file:/home/daniel/github/TrabajosJSP/src/java/Modelos/Modelo_Usuario.java</file>
+            <file>file:/home/daniel/github/TrabajosJSP/web/general.jsp</file>
+            <file>file:/home/daniel/github/TrabajosJSP/web/registro.jsp</file>
+            <file>file:/home/daniel/github/TrabajosJSP/src/java/Modelos/Modelo_ConexionDb.java</file>
         </group>
     </open-files>
 </project-private>

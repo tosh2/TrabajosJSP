@@ -55,11 +55,17 @@ public class Ctrl_Login extends HttpServlet {
                 password    =   request.getParameter("txt_password");
                 //nivel = acc.validar(nombre, contra);
                 tipo = log.validarAcceso(usuario, password);
-                
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("tipo", tipo);
-
-                rd  =   request.getRequestDispatcher("login.jsp");
+                if(tipo==0){
+                    //datos incorrectos
+                    
+                }else if(tipo==1){
+                    request.setAttribute("usuario", usuario);
+                    request.setAttribute("tipo", tipo);
+                }else{
+                    request.setAttribute("usuario", usuario);
+                    request.setAttribute("tipo", tipo);
+                }
+                rd  =   request.getRequestDispatcher("login.jsp");                
                 
             }
             

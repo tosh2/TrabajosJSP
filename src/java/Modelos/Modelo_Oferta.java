@@ -32,7 +32,7 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM oferta;";
+            sql = "SELECT * FROM Oferta;";
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             

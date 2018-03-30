@@ -15,9 +15,9 @@ public class Modelo_ConexionDb {
     private String driver;
 
     public Modelo_ConexionDb(){
-        this.url    =   "jdbc:mysql://localhost:3306/analisis";
+        this.url    =   "jdbc:mysql://localhost/analisis";
         this.userdb   =   "root";
-        this.passdb =   "";
+        this.passdb =   "123456";
         this.driver =   "com.mysql.jdbc.Driver";
     }
     

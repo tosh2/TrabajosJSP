@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Classes.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -65,15 +66,17 @@ public class Ctrl_Registro extends HttpServlet {
                 out.println(edad);
                 out.println(sexo);
                 out.println(tipo_usuario);
-                
-                resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
-                
-                request.setAttribute("usuario", correo);
-                request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
-                
-                rd = request.getRequestDispatcher("registro.jsp");
-            }
-            
+                if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
+                    resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
+                    request.setAttribute("usuario", correo);
+                    request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
+                    rd = request.getRequestDispatcher("registro.jsp");
+                }else{
+                    //si ya existe, entonces no lo guarda
+                    request.setAttribute("error", "error, el correo ya existe");
+                    rd = request.getRequestDispatcher("registro.jsp");
+                }
+            }            
             rd.forward(request, response);
             
             /*out.println("<!DOCTYPE html>");

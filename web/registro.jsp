@@ -22,6 +22,9 @@
             sesion.setAttribute("tipo", tipo);
             response.sendRedirect("general.jsp");
 //        }
+    }else if(request.getAttribute("error")!=null){
+            sesion.setAttribute("error", request.getAttribute("error"));
+            response.sendRedirect("registro.jsp");
     }
 %>
 
@@ -37,12 +40,13 @@
             |
             <a href="login.jsp">Log-In</a>
             <hr>
+            <div><%= sesion.getAttribute("error")%></div>
         </div>
         <h1>Crear Cuenta</h1>
         <!--    tosh
                 Ctrl_Registro = controlador
         -->
-        <form action="Ctrl_Registro" method="POST"> 
+        <form name="form1" action="Ctrl_Registro" method="POST"> 
             Nombre: <br>
             <input type="text" name="txt_nombre" >
             <br>
@@ -54,7 +58,7 @@
             <input type="text" name="txt_correo">
             <br>
             Edad:<br>
-            <input type="text" name="txt_edad">
+            <input type="text" name="txt_edad" onkeypress="return soloNumeros(event)">
             <br>
             Contraseña :<br>
             <input type="password" name="txt_password">
@@ -73,10 +77,50 @@
             <input type="radio" name="tipo" value="2" >Empleado
             <br>
             <br>
-            <input type="submit" name="btn_registrar" value="Registrar">
+            <input type="submit" name="btn_registrar" value="Registrar" onClick="return campoVacio()">
             <br>
-        </form>
+        </form>               
+        <!--<form action="subefichero.jsp" enctype="multipart/form-data" method="post"> 
+        Fichero: <input type="file" name="fichero"/></br> 
+        <input type="submit" value="Subir fichero"/> 
+        </form> -->
         
-        
+        <script>
+            function soloNumeros(e){
+                key = e.keyCode || e.which;
+                tecla = String.fromCharCode(key).toLowerCase();
+                numeros ="0123456789";
+                especiales = [8,37,39,46];
+                tecla_especial = false;
+                for(var i in especiales){
+                        if(key==especiales[i]){
+                                tecla_especial = true;
+                                break;
+                        }
+                }
+                if(numeros.indexOf(tecla) == -1 && !tecla_especial){
+                        return false;
+                }
+            }
+            function campoVacio(){
+                var nombre=document.form1.txt_nombre.value;
+                var apellido=document.form1.txt_apellido.value;
+                var edad=document.form1.txt_edad.value;
+                var correo=document.form1.txt_correo.value;
+                var password=document.form1.txt_password.value;
+                var password2=document.form1.txt_password_conf.value;
+                var correcto=true;
+                if(nombre==""||apellido==""||edad==""||correo==""||password==""||password2==""){
+                        alert('falta llenar campos');
+                        correcto=false;
+                }else{
+                    if(password!=password2){
+                        alert('las contrase;as no coinciden');
+                        correcto=false;
+                    }
+                }
+                return correcto;
+            }
+        </script>
     </body>
 </html>
