@@ -33,7 +33,7 @@ public class Modelo_Usuario {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "INSERT INTO `usuario` (`usuario`, `nombre`, `apellido`, `correo`, `password`, `edad`, `sexo`, `tipo`)"
+            sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
                 + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"');";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();
