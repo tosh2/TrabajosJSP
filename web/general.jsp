@@ -4,6 +4,8 @@
     Author     : tosh
 --%>
 
+<%@page import="Classes.Puesto"%>
+<%@page import="Classes.Categoria"%>
 <%@page import="Modelos.Modelo_Oferta"%>
 <%@page import="Classes.Oferta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -58,16 +60,55 @@ if(request.getParameter("cbodis")!=null){
         <form action="" method="POST">
             <table width="50%" border="0">
                 <tr>
-                    <td>Seleccione tipo de filtro</td>
-                    <td><select name="cbodis" id="cbodis">
+                    <td>Selección filtro</td>
+                    <td style="padding: 0px 15px;">
+                        
+                        <select name="cbodis" id="cbodis" style="background: #212529;padding:10px;color: white;">
                             <option value="1">categoria</option>
                             <option value="2">puesto</option>
                             <!--<option value="3">mercado</option>-->
                         </select></td>
-                    <td><input type="submit" name="btn_seleccion" id="btn_seleccion"></td>
-                    <td>ingrese id:<input name="seleccion" id="seleccion"></td>
+                    <td style="padding: 0px 15px;">
+                        <input type="submit" name="btn_seleccion" id="btn_seleccion" style="background: #212529;padding: 8px 15px;color:  white;">
+                    </td>
+                    <td style="padding: 0px 15px;">categoria:</td>
+                    <td>
+                    <select name="seleccion" style="background: #212529;padding:10px;color: white;">
+                        <%
+                            Modelo_Oferta ofertasModel1 = new Modelo_Oferta();
+                            List<Categoria> listaCategorias = ofertasModel1.obtenerCategorias();
+                            Iterator<Categoria> it1 = listaCategorias.iterator();
+                            Categoria ca = null;
+
+                            while(it1.hasNext()){
+                                ca = it1.next();
+                        %>
+                            <option value="<%= ca.getCategoria()%>"><!--<%= ca.getCategoria()%> ---> <%= ca.getNombre()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    </td>
+                    <td style="padding: 0px 15px;">puesto:</td>
+                    <td>
+                    <select name="seleccion1" style="background: #212529;padding:10px;color: white;">
+                        <%
+                            Modelo_Oferta ofertasModel2 = new Modelo_Oferta();
+                            List<Puesto> listaPuestos = ofertasModel2.obtenerPuestos();
+                            Iterator<Puesto> it2 = listaPuestos.iterator();
+                            Puesto pu = null;
+
+                            while(it2.hasNext()){
+                                pu = it2.next();
+                        %>
+                            <option value="<%= pu.getPuesto()%>"><!--<%= pu.getPuesto()%> ---> <%= pu.getNombre()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+                    </td>
                 </tr>
-            </table>            
+            </table>
         </form>
         <br>
         <br>
@@ -89,14 +130,16 @@ if(request.getParameter("cbodis")!=null){
                        e iteramos sobre la lista
             */
             Modelo_Oferta ofertasModel = new Modelo_Oferta();
-            List<Oferta> listaOfertas;
-            String id=request.getParameter("seleccion");
+            List<Oferta> listaOfertas;            
             if(dis!=null){
                 if(dis.equals("1")){
+                    String id=request.getParameter("seleccion");
                     listaOfertas = ofertasModel.obtenerOfertasCategorias(id);//pasar el id
                 }else if(dis.equals("2")){
+                    String id=request.getParameter("seleccion1");
                     listaOfertas = ofertasModel.obtenerOfertasPuesto(id);//pasar el id
                 }else{
+                    String id=request.getParameter("seleccion1");
                     listaOfertas = ofertasModel.obtenerOfertasPuesto(id);//pasar el id
                 }
             }else{

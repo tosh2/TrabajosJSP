@@ -5,6 +5,7 @@
  */
 package Modelos;
 
+import Classes.Categoria;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Classes.Oferta;
+import Classes.Puesto;
 import java.sql.SQLException;
 
 /**
@@ -57,6 +59,50 @@ public class Modelo_Oferta {
         }
         return ofertas;
     }
+    public List obtenerCategorias(){
+        List categorias = new ArrayList();
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT  * FROM categoria;";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Categoria nuevaCategoria = new Categoria(rs.getString("categoria"),rs.getString("nombre"),rs.getString("descripcion"));
+                categorias.add(nuevaCategoria);
+            }
+            
+            conn.close();
+            rs.close();
+            return categorias;
+        } catch (Exception e) {
+        }
+        return categorias;
+    }
+    
+    public List obtenerPuestos(){
+        List puestos = new ArrayList();
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT  * FROM puesto;";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Puesto nuevoPuesto = new Puesto(rs.getString("puesto"),rs.getString("nombre"),rs.getString("descripcion"));
+                puestos.add(nuevoPuesto);
+            }
+            
+            conn.close();
+            rs.close();
+            return puestos;
+        } catch (Exception e) {
+        }
+        return puestos;
+    }
+    
     public List obtenerOfertasCategorias(String id){
         List ofertas = new ArrayList();
         try {
