@@ -35,7 +35,7 @@ public class Ctrl_Perfil extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-                        Modelo_Usuario regModel = new Modelo_Usuario();
+            Modelo_Usuario regModel = new Modelo_Usuario();
             
             RequestDispatcher rd = null;
             int resultado = 0;

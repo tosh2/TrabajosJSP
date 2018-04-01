@@ -68,7 +68,7 @@
             Confirmar Contraseña :<br>
             <input type="password" name="txt_password_conf">
             <br>
-            
+            <br>
             Sexo:<br>
             <%
                 if(infoUsuario.getSexo().equals("1")){
@@ -102,8 +102,7 @@
                     <br>
             <%
                 }
-            %>
-            
+            %>            
             <br>
             <input type="submit" name="btn_guardar" value="Guardar">
             <br>

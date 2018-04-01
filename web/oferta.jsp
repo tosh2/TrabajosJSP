@@ -60,7 +60,7 @@
                     }
                 %>
             </select>
-            <input type="submit" name="btn_editar" value="Seleccionar">
+            <input type="submit" name="btn_seleccionar" value="Seleccionar">
         </form>
         <br>
         

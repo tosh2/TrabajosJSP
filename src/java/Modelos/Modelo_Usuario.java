@@ -6,11 +6,13 @@
 package Modelos;
 
 import Classes.Usuario;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 /**
  *
@@ -35,7 +37,6 @@ public class Modelo_Usuario {
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
 
             sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
-
                 + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"');";
             pst=conn.prepareStatement(sql);
             rquery  =   pst.executeUpdate();

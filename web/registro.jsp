@@ -46,7 +46,7 @@
         <!--    tosh
                 Ctrl_Registro = controlador
         -->
-        <form name="form1" action="Ctrl_Registro" method="POST"> 
+        <form name="form1" action="Ctrl_Registro" enctype="MULTIPART/FORM-DATA" method="POST"> 
             Nombre: <br>
             <input type="text" name="txt_nombre" >
             <br>
@@ -75,6 +75,22 @@
             Tipo:<br>
             <input type="radio" name="tipo" value="1" checked>Empleador
             <input type="radio" name="tipo" value="2" >Empleado
+            <br>
+            <br>
+            <input type="file" name="file" />
+            <br>
+            <br>
+            <div>
+                <input type="text" name="txt_politica" value="acepto las politicas de privacidad" readonly="readonly" style="
+                    width: 210px;
+                    border:  none;
+                ">
+            </div>
+            <div>
+                <input type="radio" name="politica" value="1" checked>si
+                <input type="radio" name="politica" value="2" >no
+            </div>
+            <a href="javascript:void(0);" onclick="window.open('http://localhost:8083/TrabajosJSP/login.jsp',  'popup', 'top=100, left=200, width=853, height=480, toolbar=NO, resizable=NO, Location=NO, Menubar=NO,  Titlebar=No, Status=NO')" rel="nofollow">politicas de privacidad</a>
             <br>
             <br>
             <input type="submit" name="btn_registrar" value="Registrar" onClick="return campoVacio()">

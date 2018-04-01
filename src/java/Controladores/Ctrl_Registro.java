@@ -14,12 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Modelos.Modelo_Usuario;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author tosh
  */
+@MultipartConfig
 public class Ctrl_Registro extends HttpServlet {
 
     /**
@@ -49,6 +55,7 @@ public class Ctrl_Registro extends HttpServlet {
             String edad;
             String sexo;
             String tipo_usuario;
+            String politica;
             if(request.getParameter("btn_registrar") != null){
                 nombre = request.getParameter("txt_nombre");
                 apellido = request.getParameter("txt_apellido");
@@ -58,6 +65,9 @@ public class Ctrl_Registro extends HttpServlet {
                 edad = request.getParameter("txt_edad");
                 sexo = request.getParameter("sexo");
                 tipo_usuario = request.getParameter("tipo");
+                politica = request.getParameter("politica");                
+                //ps = conn.prepareStatement(sqlQuery);
+                //ps.setBinaryStream(1, fis, (int) file.length());
                 out.println(nombre);
                 out.println(apellido);
                 out.println(correo);
@@ -66,18 +76,22 @@ public class Ctrl_Registro extends HttpServlet {
                 out.println(edad);
                 out.println(sexo);
                 out.println(tipo_usuario);
-                if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
-                    System.out.println("hola aqui !!!");
-                    resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
-                    request.setAttribute("usuario", correo);
-                    request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
-                    rd = request.getRequestDispatcher("registro.jsp");
+                if(politica.equals("2")){
+                    rd = request.getRequestDispatcher("login.jsp");
                 }else{
-                    //si ya existe, entonces no lo guarda
-                    System.out.println("hola aqui !!!");
-                    request.setAttribute("error", "error, el correo ya existe");
-                    rd = request.getRequestDispatcher("registro.jsp");
-                }
+                   if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
+                       System.out.println("hola aqui !!!");
+                       resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
+                       request.setAttribute("usuario", correo);
+                       request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
+                       rd = request.getRequestDispatcher("registro.jsp");
+                   }else{
+                       //si ya existe, entonces no lo guarda
+                       System.out.println("hola aqui !!!");
+                       request.setAttribute("error", "error, el correo ya existe");
+                       rd = request.getRequestDispatcher("registro.jsp");
+                   }   
+                }                
             }            
             rd.forward(request, response);
             
