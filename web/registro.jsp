@@ -4,7 +4,7 @@
     Author     : tosh
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@page session="true"%>
 
 <%
@@ -77,7 +77,7 @@
             <input type="radio" name="tipo" value="2" >Empleado
             <br>
             <br>
-            <input type="file" name="file" />
+            <input type="file" name="photo" />
             <br>
             <br>
             <div>

@@ -17,6 +17,10 @@ public class Oferta {
     private String nivelExperiencia;
     private String salario;
     private String vehiculo;
+    
+    private String categoria;
+    private String puesto;
+    private String estado;
 
     public Oferta(String oferta, String titulo, String descripcion,
                     String numeroPlazas, String nivelExperiencia, String salario, String vehiculo){
@@ -83,5 +87,47 @@ public class Oferta {
      */
     public String getVehiculo() {
         return vehiculo;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public String getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    /**
+     * @return the puesto
+     */
+    public String getPuesto() {
+        return puesto;
+    }
+
+    /**
+     * @param puesto the puesto to set
+     */
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

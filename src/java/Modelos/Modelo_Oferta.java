@@ -34,7 +34,8 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT  *" +
+            sql = "SELECT * FROM oferta WHERE oferta.estado = 1";
+            /*sql = "SELECT  *" +
                     "FROM oferta,\n" +
                     "	(\n" +
                     "	SELECT ofertaUsuario.oferta_oferta, ofertaUsuario.fecha\n" +
@@ -42,6 +43,7 @@ public class Modelo_Oferta {
                     "    ) AS O\n" +
                     "WHERE oferta.oferta = O.oferta_oferta\n" +
                     "ORDER BY O.fecha ASC";
+            */
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             
@@ -59,6 +61,7 @@ public class Modelo_Oferta {
         }
         return ofertas;
     }
+    
     public List obtenerCategorias(){
         List categorias = new ArrayList();
         try {
@@ -108,7 +111,8 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT *\n" +
+            sql = "SELECT * FROM oferta WHERE oferta.categoria_categoria = '"+id+"';";
+            /*sql = "SELECT *\n" +
                     "FROM oferta, \n" +
                     "	(\n" +
                     "    SELECT oferta_oferta \n" +
@@ -122,6 +126,7 @@ public class Modelo_Oferta {
                     "     AND ofertaUsuario.oferta_oferta = C.ofertaUsuario_oferta_oferta \n" +
                     "    )AS O \n" +
                     "WHERE oferta.oferta = O.oferta_oferta;";
+            */
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             
@@ -140,12 +145,14 @@ public class Modelo_Oferta {
         }
         return ofertas;
     }
+    
     public List obtenerOfertasPuesto(String id){
         List ofertas = new ArrayList();
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT  *\n" +
+            sql = "SELECT * FROM oferta WHERE oferta.puesto_puesto = '"+id+"';";
+            /*sql = "SELECT  *\n" +
                     "FROM 	oferta,\n" +
                     "		(\n" +
                     "        SELECT ofertaUsuario.oferta_oferta\n" +
@@ -154,6 +161,7 @@ public class Modelo_Oferta {
                     "        WHERE 	ofertaUsuario.puesto_puesto	=	P.puesto\n" +
                     "        )AS O\n" +
                     "WHERE oferta.oferta	=	O.oferta_oferta";
+            */
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
             
@@ -174,7 +182,7 @@ public class Modelo_Oferta {
     }
     
     public List obtenerOfertasPorUsuario(String correo){
-        
+
         List ofertas = new ArrayList();
         String usuario;
         int rquery  =   0;
@@ -183,44 +191,29 @@ public class Modelo_Oferta {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
             
-            /*  Obtenemos id(usuario) de la persona */
-            PreparedStatement pstUsuario;
-            String sql_usuario  =   "SELECT usuario FROM usuario WHERE correo='"+correo+"';";
+            sql = "SELECT *\n" +
+                    "FROM oferta, \n" +
+                    "(SELECT oferta_oferta\n" +
+                    "FROM ofertausuario,\n" +
+                    "(\n" +
+                       "SELECT usuario\n" +
+                        "FROM usuario\n" +
+                        "WHERE usuario.correo = '"+correo+"'\n" +
+                        ") AS C\n" +
+                        "WHERE usuario_usuario = c.usuario\n" +
+                        ") AS U\n" +
+                    "WHERE oferta.oferta = U.oferta_oferta "+
+                    "AND oferta.estado = 1;";
             
-            pstUsuario =   conn.prepareStatement(sql_usuario);
-            ResultSet rsUsuario =   pstUsuario.executeQuery();
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
             
-            if(rsUsuario.next()){
-                usuario =   rsUsuario.getString("usuario");
-            }else{
-                return ofertas;
+            while(rs.next()){
+                Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
+                ofertas.add(nuevaOferta);
             }
-
-            /*  tosh - Obtenemos ofertas hechas por el usuario en tabla 'ofertausuario'*/
-            PreparedStatement pstOfertaUsuario;
-            String sql_ofertaUsuario  =   "SELECT Oferta_oferta FROM ofertaUsuario WHERE Usuario_usuario='"+usuario+"';";
-            ResultSet   rsOfertaUsuario;
-            
-            pstOfertaUsuario =   conn.prepareStatement(sql_ofertaUsuario);
-            rsOfertaUsuario =   pstOfertaUsuario.executeQuery();
-            
-            
-            /*  tosh - Obtenemos ofertas mediante el id de las ofertas*/
-            
-            while(rsOfertaUsuario.next()){
-                sql = "SELECT * FROM oferta WHERE oferta ='"+rsOfertaUsuario.getString("Oferta_oferta")+"';";
-                pst=conn.prepareStatement(sql);
-                rs = pst.executeQuery();
-
-                while(rs.next()){
-                    Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
-                                                    rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
-                                                    rs.getString("salario"),rs.getString("vehiculo"));
-                    ofertas.add(nuevaOferta);
-                }
-            }
-            
-            rsOfertaUsuario.close();
             
             conn.close();
             rs.close();
@@ -234,7 +227,9 @@ public class Modelo_Oferta {
         tosh    -   Utiliza relacion de muchos-muchos, hay que ir a traer varias llaves ....
     */
     
-    public int crearOferta(String correo, String titulo, String descripcion, String numeroPlazas, String nivelExperiencia, String salario, String vehiculo){
+    public int crearOferta(String correo, String titulo, String descripcion, 
+                           String numeroPlazas, String nivelExperiencia, String salario, 
+                           String vehiculo, String categoria, String puesto){
         int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
         String usuario;
         String oferta;
@@ -243,8 +238,9 @@ public class Modelo_Oferta {
             
             /*  Creacion De Oferta (Tabla 'oferta')*/
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "INSERT INTO oferta (oferta, titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo)"
-                + " VALUES (NULL,'"+titulo+"','"+descripcion+"','"+numeroPlazas+"','"+nivelExperiencia+"','"+salario+"','"+vehiculo+"');";
+            sql = "INSERT INTO oferta (oferta, titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo,fecha, estado, categoria_categoria, puesto_puesto)"
+                + " VALUES (NULL,'"+titulo+"','"+descripcion+"','"+numeroPlazas+"','"+nivelExperiencia+"','"+salario+
+                    "','"+vehiculo+"',NOW(),'1','"+categoria+"','"+puesto+"');";
             
             pst=conn.prepareStatement(sql, new String[]{"oferta"});
             rquery  =   pst.executeUpdate();
@@ -271,8 +267,8 @@ public class Modelo_Oferta {
             
             /*  Insercion de llaves en: ofertausuario*/
             PreparedStatement pstOfertaUsuario;
-            String sql_ofertaUsuario  =   "INSERT INTO ofertaUsuario (fecha, Usuario_usuario, Oferta_oferta)"
-                                            +"VALUES (NULL,'"+usuario+"','"+oferta+"');";
+            String sql_ofertaUsuario  =   "INSERT INTO ofertaUsuario (usuario_usuario, oferta_oferta)"
+                                            +"VALUES ('"+usuario+"','"+oferta+"');";
             
             pstOfertaUsuario =   conn.prepareStatement(sql_ofertaUsuario);
             rquery =   pstOfertaUsuario.executeUpdate();
@@ -280,6 +276,125 @@ public class Modelo_Oferta {
             rsUsuario.close();
             
             rs.close();
+            
+            conn.close();
+            
+            return rquery;
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Grupo 8-Error: "+e);
+        }
+        return 0;
+    }
+ 
+    public List obtenerOfertasMasRecientes(){
+        List ofertas = new ArrayList();
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT * FROM oferta ORDER BY oferta.fecha DESC";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
+                ofertas.add(nuevaOferta);
+            }
+            
+            conn.close();
+            rs.close();
+            return ofertas;
+        } catch (Exception e) {
+        }
+        return ofertas;
+    }
+    
+    public List obtenerOfertasMenosRecientes(){
+        List ofertas = new ArrayList();
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT * FROM oferta ORDER BY oferta.fecha ASC";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
+                ofertas.add(nuevaOferta);
+            }
+            
+            conn.close();
+            rs.close();
+            return ofertas;
+        } catch (Exception e) {
+        }
+        return ofertas;
+    }
+    
+    public Oferta obtenerOferta(String idOferta){
+        Oferta oferta = null;
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT * FROM oferta WHERE oferta.oferta = '"+idOferta+"'";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                oferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
+                oferta.setEstado(rs.getString("estado"));
+                oferta.setCategoria(rs.getString("categoria_categoria"));
+                oferta.setPuesto(rs.getString("puesto_puesto"));
+            }
+            
+            conn.close();
+            rs.close();
+            return oferta;
+        } catch (Exception e) {
+            
+        }
+        return oferta;
+    }
+    
+    public int eliminarOferta(String idOferta){ /*  tosh - Oferta no se elimina, solo se actualiza su campo estado*/
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            
+            sql = "UPDATE oferta SET oferta.estado = 0 WHERE oferta.oferta = '"+idOferta+"'";
+            pst=conn.prepareStatement(sql);
+            
+            pst.executeUpdate();
+            conn.close();
+            
+            return 1;
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+    public int actualizarOferta(String idOferta,String titulo, String descripcion, 
+                           String numeroPlazas, String nivelExperiencia, String salario, 
+                           String vehiculo, String categoria, String puesto){
+        int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
+        
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "UPDATE oferta SET titulo='"+titulo+"',descripcion='"+descripcion+"',numeroPlazas='"+numeroPlazas+
+                    "',nivelExperiencia='"+nivelExperiencia+"',salario='"+salario+
+                    "',vehiculo='"+vehiculo+"',categoria_categoria='"+categoria+"',puesto_puesto='"+puesto+"' "+
+                    "WHERE oferta.oferta = '"+idOferta+"';";
+            
+            pst=conn.prepareStatement(sql);
+            rquery  =   pst.executeUpdate();
             
             conn.close();
             

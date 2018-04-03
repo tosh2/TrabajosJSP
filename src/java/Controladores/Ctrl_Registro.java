@@ -17,15 +17,18 @@ import Modelos.Modelo_Usuario;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Part;
 
 /**
  *
  * @author tosh
  */
-@MultipartConfig
+@WebServlet("/uploadServlet")
+@MultipartConfig(maxFileSize = 16177215)
 public class Ctrl_Registro extends HttpServlet {
 
     /**
@@ -55,7 +58,9 @@ public class Ctrl_Registro extends HttpServlet {
             String edad;
             String sexo;
             String tipo_usuario;
-            String politica;
+            String politica;                       
+            InputStream inputStream = null; // input stream of the upload file
+            
             if(request.getParameter("btn_registrar") != null){
                 nombre = request.getParameter("txt_nombre");
                 apellido = request.getParameter("txt_apellido");
@@ -66,6 +71,21 @@ public class Ctrl_Registro extends HttpServlet {
                 sexo = request.getParameter("sexo");
                 tipo_usuario = request.getParameter("tipo");
                 politica = request.getParameter("politica");                
+                
+                
+                Part filePart = request.getPart("photo");
+                if (filePart != null) {
+                    // prints out some information for debugging
+                    System.out.println(filePart.getName());
+                    System.out.println(filePart.getSize());
+                    System.out.println(filePart.getContentType());
+
+                    // obtains input stream of the upload file
+                    inputStream = filePart.getInputStream();
+                }
+                
+                
+                
                 //ps = conn.prepareStatement(sqlQuery);
                 //ps.setBinaryStream(1, fis, (int) file.length());
                 out.println(nombre);
@@ -80,11 +100,17 @@ public class Ctrl_Registro extends HttpServlet {
                     rd = request.getRequestDispatcher("login.jsp");
                 }else{
                    if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
-                       System.out.println("hola aqui !!!");
-                       resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
-                       request.setAttribute("usuario", correo);
-                       request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
-                       rd = request.getRequestDispatcher("registro.jsp");
+                       
+                       if(inputStream!=null){
+                       
+                            System.out.println("hola aqui !!!");
+                            resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario,inputStream);
+                            request.setAttribute("usuario", correo);
+                            request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
+                            rd = request.getRequestDispatcher("registro.jsp");
+                       }
+                       
+                       
                    }else{
                        //si ya existe, entonces no lo guarda
                        System.out.println("hola aqui !!!");

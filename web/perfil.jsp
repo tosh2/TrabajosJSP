@@ -6,6 +6,8 @@
 
 <%@page import="Classes.Usuario"%>
 <%@page import="Modelos.Modelo_Usuario"%>
+<%@page import ="java.io.*" %>
+<%@page import ="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     /*
@@ -36,6 +38,8 @@
         
         <div align="right">
             Bienvenido <%= sesion.getAttribute("usuario")%>
+            |
+            <a href="general.jsp">Inicio</a>
             |
             <a href="index.jsp?cerrar=true">Cerrar Sesion</a>
             <hr>
@@ -107,7 +111,25 @@
             <input type="submit" name="btn_guardar" value="Guardar">
             <br>
         </form>
-        
+<%
+ /*Class.forName("com.mysql.jdbc.Driver");
+ Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/analisis","root", "");
+Statement st = con.createStatement();
+
+ResultSet i = st.executeQuery("SELECT foto FROM usuario WHERE usuario.correo='"+(String)sesion.getAttribute("usuario")+"';");*/
+%>
+<img src="${pageContext.request.contextPath}/images/<%=sesion.getAttribute("usuario")%>" style="width:200px;height:200px;">
+ <%
+/*OutputStream img;
+ while(i.next( )){
+     byte barray[] = i.getBytes(1);
+     response.setContentType("image/png");
+     img  =   response.getOutputStream();
+     img.write(barray);
+     img.flush();
+     img.close();
+ }*/
+   %>
         
     </body>
     

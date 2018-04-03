@@ -4,6 +4,8 @@
     Author     : tosh
 --%>
 
+<%@page import="Classes.Puesto"%>
+<%@page import="Classes.Categoria"%>
 <%@page import="Classes.Oferta"%>
 <%@page import="java.util.*"%>
 <%@page import="Modelos.Modelo_Oferta"%>
@@ -24,7 +26,8 @@
         sesion.setAttribute("usuario", request.getAttribute("usuario"));
         sesion.setAttribute("tipo", tipo);
                   //  response.sendRedirect("Admin/admin.jsp");
-                //}
+                //}                       
+        
     }
 %>
 <!DOCTYPE html>
@@ -37,25 +40,116 @@
         <div align="right">
             Bienvenido <%= sesion.getAttribute("usuario")%>
             |
+            <a href="general.jsp">Inicio</a>
+            |
             <a href="index.jsp?cerrar=true">Cerrar Sesion</a>
             <hr>
         </div>
         <h1>Mis Ofertas</h1>
+        <%
+            if(request.getParameter("idOferta")!=null){
+                Oferta ofertaSeleccionada = new Modelo_Oferta().obtenerOferta((String)request.getParameter("idOferta"));
+            %>
             
+            <!--    tosh
+                Ctrl_Oferta = controlador
+        -->
+        <form action="Ctrl_Oferta" method="POST"> 
+            Id:<br>
+            <input type="text" name="txt_id" value="<%=ofertaSeleccionada.getOferta()%>"  readonly="true">
+            <br>
+            Titulo: <br>
+            <input type="text" name="txt_titulo" value="<%= ofertaSeleccionada.getTitulo()%>">
+            <br>
+            Descripcion: 
+            <br>
+            <input type="text" name="txt_descripcion" value="<%= ofertaSeleccionada.getDescripcion()%>">
+            <br>
+            Numero de Plazas:<br>
+            <input type="text" name="txt_numeroPlazas" value="<%= ofertaSeleccionada.getNumeroPlazas()%>">
+            <br>
+            Nivel de Experiencia:<br>
+            <input type="text" name="txt_nivelExperiencia" value="<%= ofertaSeleccionada.getNivelExperiencia()%>">
+            <br>
+            Salario :<br>
+            <input type="text" name="txt_salario" value="<%= ofertaSeleccionada.getSalario()%>">
+            <br>
+            Vehiculo :<br>
+            <input type="text" name="txt_vehiculo" value="<%= ofertaSeleccionada.getVehiculo()%>">
+            <br>
+            Categoria
+            <select name="categoria_seleccionada">
+            <%
+                Modelo_Oferta ofertasModel = new Modelo_Oferta();
+                List<Categoria> listaCategorias = ofertasModel.obtenerCategorias();
+                Iterator<Categoria> categoriasIt = listaCategorias.iterator();
+                Categoria categoria = null;
+
+              
+                while(categoriasIt.hasNext()){
+                    categoria = categoriasIt.next();
+                    if(categoria.getCategoria().equals(ofertaSeleccionada.getCategoria())){
+             %>
+             <option value="<%= categoria.getCategoria()%>" selected="selected"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
+            <%
+                    }else{                    
+            %>
+                    <option value="<%= categoria.getCategoria()%>"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
+            <%
+                    }
+                }
+            %>
+            </select>
+            
+            Puesto
+            <select name="puesto_seleccionado">
+            <%
+                List<Puesto> listaPuestos = ofertasModel.obtenerPuestos();
+                Iterator<Puesto> puestosIt = listaPuestos.iterator();
+                Puesto puesto = null;
+                
+                while(puestosIt.hasNext()){
+                    puesto = puestosIt.next();
+                    if(puesto.getPuesto().equals(ofertaSeleccionada.getPuesto())){
+            %>
+                    <option value="<%= puesto.getPuesto()%>" selected="selected"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
+            <%
+                    }else{
+            %>
+                    <option value="<%= puesto.getPuesto()%>"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
+                    <%
+                    }
+                }
+            %>
+            </select>
         
-        <!--    tosh    -   Lista de Ofertas    -->
-        <form action="Ctrl_Oferta">
-            <select name="">
+            <br>
+            <br>
+            <input type="submit" name="btn_guardar" value="Guardar">
+            <input type="submit" name="btn_eliminar" value="Eliminar">
+            <br>
+        </form>
+            
+            <a href="oferta.jsp" class="btn btn-primary">Regresar</a>
+            
+            
+            
+        <%
+            }else{
+        %>
+<!--    tosh    -   Lista de Ofertas    -->
+        <form action="Ctrl_Oferta" method="POST">
+            <select name="lst_oferta_seleccionada">
                 <%
                     Modelo_Oferta ofertasModel = new Modelo_Oferta();
                     List<Oferta> listaOfertas = ofertasModel.obtenerOfertasPorUsuario((String)sesion.getAttribute("usuario"));
-                    Iterator<Oferta> it = listaOfertas.iterator();
-                    Oferta of = null;
+                    Iterator<Oferta> ofertasIt = listaOfertas.iterator();
+                    Oferta oferta = null;
                     
-                    while(it.hasNext()){
-                        of = it.next();
+                    while(ofertasIt.hasNext()){
+                        oferta = ofertasIt.next();
                 %>
-                    <option value="<%= of.getOferta() %>"><%= of.getOferta() %> - <%= of.getTitulo()%></option>
+                    <option value="<%= oferta.getOferta() %>"><%= oferta.getOferta() %> - <%= oferta.getTitulo()%></option>
                 <%
                     }
                 %>
@@ -63,7 +157,7 @@
             <input type="submit" name="btn_seleccionar" value="Seleccionar">
         </form>
         <br>
-        
+          
         <!--    tosh
                 Ctrl_Oferta = controlador
         -->
@@ -87,13 +181,48 @@
             Vehiculo :<br>
             <input type="text" name="txt_vehiculo">
             <br>
+            Categoria
+            <select name="categoria_seleccionada">
+            <%
+                List<Categoria> listaCategorias = ofertasModel.obtenerCategorias();
+                Iterator<Categoria> categoriasIt = listaCategorias.iterator();
+                Categoria categoria = null;
 
+              
+                while(categoriasIt.hasNext()){
+                    categoria = categoriasIt.next();
+            %>
+                    <option value="<%= categoria.getCategoria()%>"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
+            <%
+                }
+            %>
+            </select>
+            
+            Puesto
+            <select name="puesto_seleccionado">
+            <%
+                List<Puesto> listaPuestos = ofertasModel.obtenerPuestos();
+                Iterator<Puesto> puestosIt = listaPuestos.iterator();
+                Puesto puesto = null;
+                
+                while(puestosIt.hasNext()){
+                puesto = puestosIt.next();
+            %>
+                <option value="<%= puesto.getPuesto()%>"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
+            <%
+                }
+            %>
+            </select>
+        
+            <br>
             <br>
             <input type="submit" name="btn_crear" value="Crear">
-            <input type="submit" name="btn_editar" value="Editar">
-            <input type="submit" name="btn_eliminar" value="Eliminar">
             <br>
         </form>
+
+        <%
+            }
+        %>        
         
     </body>
 </html>

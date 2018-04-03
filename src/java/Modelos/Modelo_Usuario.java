@@ -7,6 +7,7 @@ package Modelos;
 
 import Classes.Usuario;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,16 +30,17 @@ public class Modelo_Usuario {
         Tabla Usuario
     */
     public int registrarUsuario(String nombre, String apellido, String correo, 
-                                String password, String edad, String sexo, String tipo_usuario){
+                                String password, String edad, String sexo, String tipo_usuario, InputStream foto){
         //  INSERT INTO 'usuario' ('usuario', 'nombre', 'apellido', 'correo', 'password', 'edad', 'sexo', 'tipo') VALUES (NULL, 'Carlos', 'Lopez', 'carlos@gmail.com', 'jdis123', '25', '1', '2');
         int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
 
-            sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo)"
-                + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"');";
+            sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo,foto)"
+                + " VALUES (NULL,'"+nombre+"','"+apellido+"','"+correo+"','"+password+"','"+edad+"','"+sexo+"','"+tipo_usuario+"',?);";            
             pst=conn.prepareStatement(sql);
+            pst.setBlob(1, foto);
             rquery  =   pst.executeUpdate();
             conn.close();
             System.out.println("Valor query "+rquery);

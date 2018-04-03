@@ -1,0 +1,79 @@
+SELECT *
+FROM oferta, 
+    (SELECT oferta_oferta
+     FROM ofertausuario
+     WHERE usuario_usuario = 1
+     ) AS U
+WHERE oferta.oferta = U.oferta_oferta
+AND oferta.estado = 1;
+
+
+
+SELECT *
+FROM oferta, 
+    (SELECT oferta_oferta
+     FROM ofertausuario,
+            (
+            SELECT usuario
+            FROM usuario
+            WHERE usuario.correo = 'josuetz21@gmail.com'
+            ) AS C
+     WHERE usuario_usuario = c.usuario
+     ) AS U
+WHERE oferta.oferta = U.oferta_oferta
+
+
+
+SELECT * FROM oferta ORDER BY oferta.fecha DESC     // recientes
+SELECT * FROM oferta ORDER BY oferta.fecha ASC
+
+/*
+ *	Filtrado por categoria (devuelve oferta)
+*/
+
+SELECT oferta.oferta, oferta.titulo, oferta.descripcion, oferta.numeroPlazas, 
+		oferta.nivelExperiencia, oferta.salario, oferta.vehiculo 
+FROM oferta, 
+	(
+    SELECT oferta_oferta 
+    FROM ofertausuario, 
+    	(
+         SELECT ofertacategoria.ofertaUsuario_usuario_usuario, ofertacategoria.ofertaUsuario_oferta_oferta 
+         FROM ofertacategoria 
+         WHERE ofertacategoria.categoria_categoria = 3 
+        )AS C 
+     WHERE ofertausuario.usuario_usuario = C.ofertaUsuario_usuario_usuario 
+     AND ofertausuariO.oferta_oferta = C.ofertaUsuario_oferta_oferta 
+    )AS O 
+WHERE oferta.oferta = O.oferta_oferta;
+
+
+/*
+ *	Ordenado por fecha (devuelve oferta)
+*/
+
+SELECT  oferta.oferta, oferta.titulo, oferta.descripcion, oferta.numeroPlazas, 
+		oferta.nivelExperiencia, oferta.salario, oferta.vehiculo
+FROM oferta,
+	(
+	SELECT ofertausuario.oferta_oferta, ofertausuario.fecha
+    FROM ofertausuario 
+    ) AS O
+WHERE oferta.oferta = O.oferta_oferta
+ORDER BY O.fecha ASC
+
+
+
+/*
+ *	Filtrado por puesto (devuelve oferta)
+*/
+SELECT  oferta.oferta, oferta.titulo, oferta.descripcion, oferta.numeroPlazas, 
+		oferta.nivelExperiencia, oferta.salario, oferta.vehiculo
+FROM 	oferta,
+		(
+        SELECT ofertausuario.oferta_oferta
+        FROM 	ofertausuario, 
+                (SELECT puesto FROM puesto WHERE puesto = 1) AS P
+        WHERE 	ofertausuario.puesto_puesto	=	P.puesto
+        )AS O
+WHERE oferta.oferta	=	O.oferta_oferta
