@@ -15,3 +15,7 @@
     Observaciones ...
         Script Utilizado para BD            ->  /Recursos/BD-Script.sql
         Controladores, Modelos, y Clases    ->  /src/java
+        Genero/Sexo:
+                    0=Mujer - 1=Hombre
+        Tipo(Usuario):
+                    1=Ofertante - 2=Postulante

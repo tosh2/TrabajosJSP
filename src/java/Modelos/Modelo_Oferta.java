@@ -15,6 +15,7 @@ import java.util.List;
 
 import Classes.Oferta;
 import Classes.Puesto;
+import Classes.Usuario;
 import java.sql.SQLException;
 
 /**
@@ -34,7 +35,8 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
-            sql = "SELECT * FROM oferta WHERE oferta.estado = 1";
+            //sql = "SELECT * FROM oferta WHERE oferta.estado = 1";
+            sql = "SELECT * FROM oferta";
             /*sql = "SELECT  *" +
                     "FROM oferta,\n" +
                     "	(\n" +
@@ -404,6 +406,36 @@ public class Modelo_Oferta {
             System.out.println("Grupo 8-Error: "+e);
         }
         return 0;
+    }
+ 
+    public List postulantes(String idOferta){
+        List postulantes = new ArrayList();
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT usuario.nombre, usuario.apellido, usuario.correo, usuario.edad, usuario.sexo\n" +
+                    "FROM usuario,\n" +
+                    "	(\n" +
+                    "    SELECT *\n" +
+                    "    FROM postulacion\n" +
+                    "    WHERE postulacion.ofertaUsuario_oferta_oferta	= '"+idOferta+"'\n" +
+                    "    ) AS P\n" +
+                    "WHERE usuario.usuario = P.usuario_usuario";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while(rs.next()){
+                Usuario usuario = new Usuario(rs.getString("nombre"),rs.getString("apellido"),rs.getString("correo"),
+                                            rs.getString("edad"),rs.getString("sexo"));
+                postulantes.add(usuario);
+            }
+            
+            conn.close();
+            rs.close();
+            return postulantes;
+        } catch (Exception e) {
+        }
+        return postulantes;
     }
     
 }

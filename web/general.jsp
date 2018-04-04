@@ -57,6 +57,9 @@ if(request.getParameter("cbodis")!=null){
         <a href="oferta.jsp" class="btn btn-primary">Mis Ofertas</a>        
         <br>
         <br>
+        <a href="verOferta.jsp?idOferta=5" class="btn btn-primary">Oferta Esp</a>
+        <br>
+        <br>
         <form action="" method="POST">
             <table width="50%" border="0">
                 <tr>
@@ -122,6 +125,7 @@ if(request.getParameter("cbodis")!=null){
                   <th scope="col">Nivel Experiencia</th>
                   <th scope="col">Salario</th>
                   <th scope="col">Vehiculo</th>
+                  <th scope="col">+</th>
                 </tr>
               </thead>
         <%
@@ -176,6 +180,9 @@ if(request.getParameter("cbodis")!=null){
     <td>
         <%= of.getVehiculo()%>
     </td>    
+    <td>
+        <a href="verOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-primary">Oferta Esp</a>
+    </td>
     </tr>    
         <%
             }

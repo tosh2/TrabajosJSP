@@ -19,6 +19,14 @@ public class Usuario {
     private String sexo;
     private String tipo;
     
+    public Usuario(String nombre, String apellido, String correo,String edad, String sexo){
+        this.nombre     =   nombre;
+        this.apellido   =   apellido;
+        this.correo     =   correo;
+        this.edad       =   edad;
+        this.sexo       =   sexo;
+    }
+    
     public Usuario(String usuario, String nombre, String apellido, String correo,
                     String password, String edad, String sexo, String tipo){
         this.usuario    =   usuario;

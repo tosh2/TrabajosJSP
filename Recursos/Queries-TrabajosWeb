@@ -1,3 +1,12 @@
+SELECT usuario.nombre, usuario.apellido, usuario.correo
+FROM usuario,
+	(
+    SELECT *
+    FROM postulacion
+    WHERE postulacion.ofertaUsuario_oferta_oferta	= 5
+    ) AS P
+WHERE usuario.usuario = P.usuario_usuario
+
 SELECT *
 FROM oferta, 
     (SELECT oferta_oferta
