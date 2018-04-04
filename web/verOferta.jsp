@@ -56,10 +56,10 @@
         }    
         %>
         
-        <form action="Ctrl_verOferta" method="GET">
+       <!-- <form action="Ctrl_verOferta" method="GET">
             E-mail:
             <input type="email" name="email">
-        </form>
+        </form>-->
         <form>
             <input type="range" name="points" min="0" max="10">
         </form>
@@ -69,9 +69,9 @@
             <input type="number" required name="price" min="0" value="0" step="0.01">
         </form>
         <hr>
-        <form action="Ctrl_verOferta" method="POST"> 
+        <form action="Ctrl_veroferta" method="POST"> 
             Id:<br>
-            <input type="text" name="txt_id" value="<%=oferta.getOferta()%>"  readonly="true">
+            <input type="text" name="txt_idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
             <br>
             Titulo: <br>
             <input type="text" name="txt_titulo" value="<%= oferta.getTitulo()%>">

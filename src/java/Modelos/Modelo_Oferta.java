@@ -438,4 +438,31 @@ public class Modelo_Oferta {
         return postulantes;
     }
     
+    public int postularse(String correo, String idOferta){
+        int rquery = 0; /*  determina si el query fue ejecutado correctamente*/
+        
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            /*Esta query obtiene el id de la persona que hizo la oferta y ala que se va a postular*/
+            sql = "INSERT INTO postulacion(fecha, estado, ofertaUsuario_usuario_usuario, ofertaUsuario_oferta_oferta, usuario_usuario) "+
+                    "VALUES (NOW(),'0',"+
+                    "(SELECT ofertausuario.usuario_usuario FROM ofertausuario WHERE  ofertausuario.oferta_oferta = '"+idOferta+"'),"+
+                    "'"+idOferta+"',"+
+                    "(SELECT usuario.usuario FROM usuario WHERE usuario.correo = '"+correo+"'));";
+            
+            pst=conn.prepareStatement(sql);
+            rquery  =   pst.executeUpdate();
+            
+            conn.close();
+            
+            return rquery;
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Grupo 8-Error: "+e);
+        }
+        return rquery;
+    }
+    
 }

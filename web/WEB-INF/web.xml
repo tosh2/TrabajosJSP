@@ -16,6 +16,10 @@
         <servlet-name>Ctrl_Perfil</servlet-name>
         <servlet-class>Controladores.Ctrl_Perfil</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ctrl_veroferta</servlet-name>
+        <servlet-class>Controladores.Ctrl_veroferta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Ctrl_Login</servlet-name>
         <url-pattern>/Ctrl_Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>Ctrl_Perfil</servlet-name>
         <url-pattern>/Ctrl_Perfil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ctrl_veroferta</servlet-name>
+        <url-pattern>/Ctrl_veroferta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
