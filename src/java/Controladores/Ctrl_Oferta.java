@@ -94,7 +94,23 @@ public class Ctrl_Oferta extends HttpServlet {
             }else if(request.getParameter("btn_eliminar")   !=null){
                 String idOferta = request.getParameter("txt_id");
                 resultado   =   ofertaModel.eliminarOferta(idOferta);
-                rd = request.getRequestDispatcher("oferta.jsp");
+                rd = request.getRequestDispatcher("general.jsp");
+            }else if(request.getParameter("btn_publicar")   !=null){
+                String idOferta = request.getParameter("txt_id");
+                resultado   =   ofertaModel.publicarOferta(idOferta);
+                rd = request.getRequestDispatcher("general.jsp");
+            }else if(request.getParameter("btn_editar")   !=null){
+                String idOferta = request.getParameter("txt_idOferta");
+                titulo              = request.getParameter("txt_titulo");
+                descripcion         = request.getParameter("txt_descripcion");
+                numeroPlazas        = request.getParameter("txt_numeroPlazas");
+                nivelExperiencia    = request.getParameter("txt_nivelExperiencia");
+                salario             = request.getParameter("txt_salario");
+                vehiculo            = request.getParameter("txt_vehiculo");
+                categoria           = request.getParameter("txt_categoria");
+                puesto              = request.getParameter("txt_puesto");
+                resultado   =   ofertaModel.actualizarOferta(idOferta,titulo,descripcion,numeroPlazas,nivelExperiencia,salario,vehiculo, categoria,puesto);
+                rd = request.getRequestDispatcher("verOferta.jsp");
             }
             
             rd.forward(request, response);
@@ -130,6 +146,8 @@ public class Ctrl_Oferta extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+  
 
     /**
      * Returns a short description of the servlet.

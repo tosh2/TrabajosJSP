@@ -36,7 +36,7 @@ public class Modelo_Oferta {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
             //sql = "SELECT * FROM oferta WHERE oferta.estado = 1";
-            sql = "SELECT * FROM oferta";
+            sql = "SELECT * FROM oferta WHERE oferta.estado = 1 ";
             /*sql = "SELECT  *" +
                     "FROM oferta,\n" +
                     "	(\n" +
@@ -196,12 +196,12 @@ public class Modelo_Oferta {
             sql = "SELECT *\n" +
                     "FROM oferta, \n" +
                     "(SELECT oferta_oferta\n" +
-                    "FROM ofertausuario,\n" +
+                    "FROM ofertaUsuario,\n" +
                     "(\n" +
                        "SELECT usuario\n" +
                         "FROM usuario\n" +
                         "WHERE usuario.correo = '"+correo+"'\n" +
-                        ") AS C\n" +
+                        ") AS c\n" +
                         "WHERE usuario_usuario = c.usuario\n" +
                         ") AS U\n" +
                     "WHERE oferta.oferta = U.oferta_oferta "+
@@ -364,6 +364,45 @@ public class Modelo_Oferta {
         return oferta;
     }
     
+    public List miOferta(String usuario){
+        List oferta = new ArrayList();
+        try {
+            
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            sql = "SELECT o.oferta, o.titulo, o.descripcion, o.numeroPlazas, o.salario, o.nivelExperiencia, o.salario, o.vehiculo\n" +
+                    ", o.categoria_categoria, o.puesto_puesto, o.estado \n"+
+                    "FROM oferta o, usuario u, ofertaUsuario oU\n" +
+                    "WHERE u.usuario =  oU.usuario_usuario\n" +
+                    "AND o.oferta = oU.oferta_oferta\n" +
+                    "AND u.correo = '"+usuario+"'";
+            pst=conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            
+            while(rs.next()){
+                Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));
+                nuevaOferta.setEstado(rs.getString("estado"));
+                nuevaOferta.setCategoria(rs.getString("categoria_categoria"));
+                nuevaOferta.setPuesto(rs.getString("puesto_puesto"));
+                  /*Oferta nuevaOferta = new Oferta(rs.getString("oferta"),rs.getString("titulo"),rs.getString("descripcion"),
+                                                rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
+                                                rs.getString("salario"),rs.getString("vehiculo"));*/
+                oferta.add(nuevaOferta);
+          
+            }
+            
+            conn.close();
+            rs.close();
+            return oferta;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return oferta;
+    }
+    
     public int eliminarOferta(String idOferta){ /*  tosh - Oferta no se elimina, solo se actualiza su campo estado*/
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
@@ -380,6 +419,25 @@ public class Modelo_Oferta {
         }
         return 0;
     }
+    
+    public int publicarOferta(String idOferta){ /*  tosh - Oferta no se elimina, solo se actualiza su campo estado*/
+        try {
+            Class.forName(db.getDriver());  //Crea Conexion con DB
+            conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            
+            sql = "UPDATE oferta SET oferta.estado = 1 WHERE oferta.oferta = '"+idOferta+"'";
+            pst=conn.prepareStatement(sql);
+            
+            pst.executeUpdate();
+            conn.close();
+            
+            return 1;
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+   
     
     public int actualizarOferta(String idOferta,String titulo, String descripcion, 
                            String numeroPlazas, String nivelExperiencia, String salario, 

@@ -12,7 +12,7 @@ public class Modelo_ConexionDb {    /*  tosh - Editar variables de clase para co
     private String          url; 
     private String          driver;
     private final String    userdb  = "root";   
-    private final String    passdb  = "";
+    private final String    passdb  = "7625";
     private final String    port    = ":3306";
 
     public Modelo_ConexionDb(){

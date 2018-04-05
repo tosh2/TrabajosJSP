@@ -21,6 +21,7 @@
                // if(tipo == 1){  //  ofertante
                     sesion.setAttribute("usuario", request.getAttribute("usuario"));
                     sesion.setAttribute("tipo", tipo);
+                    
                     response.sendRedirect("general.jsp");
                 //}
             }

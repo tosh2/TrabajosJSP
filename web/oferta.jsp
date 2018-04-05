@@ -4,6 +4,7 @@
     Author     : tosh
 --%>
 
+<%@page import="java.sql.*"%>
 <%@page import="Classes.Puesto"%>
 <%@page import="Classes.Categoria"%>
 <%@page import="Classes.Oferta"%>
@@ -11,7 +12,12 @@
 <%@page import="Modelos.Modelo_Oferta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
-
+<% 
+String dis=null;
+if(request.getParameter("cbodis")!=null){
+    dis=request.getParameter("cbodis");
+}
+%>
 <%
     /*
     Utilizado con: Ctrl_Login
@@ -34,195 +40,160 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mis Ofertas</title>
-    </head>
-    <body>
-        <div align="right">
-            Bienvenido <%= sesion.getAttribute("usuario")%>
-            |
-            <a href="general.jsp">Inicio</a>
-            |
-            <a href="index.jsp?cerrar=true">Cerrar Sesion</a>
-            <hr>
-        </div>
-        <h1>Mis Ofertas</h1>
-        <%
-            if(request.getParameter("idOferta")!=null){
-                Oferta ofertaSeleccionada = new Modelo_Oferta().obtenerOferta((String)request.getParameter("idOferta"));
-            %>
-            
-            <!--    tosh
-                Ctrl_Oferta = controlador
-        -->
-        <form action="Ctrl_Oferta" method="POST"> 
-            Id:<br>
-            <input type="text" name="txt_id" value="<%=ofertaSeleccionada.getOferta()%>"  readonly="true">
-            <br>
-            Titulo: <br>
-            <input type="text" name="txt_titulo" value="<%= ofertaSeleccionada.getTitulo()%>">
-            <br>
-            Descripcion: 
-            <br>
-            <input type="text" name="txt_descripcion" value="<%= ofertaSeleccionada.getDescripcion()%>">
-            <br>
-            Numero de Plazas:<br>
-            <input type="text" name="txt_numeroPlazas" value="<%= ofertaSeleccionada.getNumeroPlazas()%>">
-            <br>
-            Nivel de Experiencia:<br>
-            <input type="text" name="txt_nivelExperiencia" value="<%= ofertaSeleccionada.getNivelExperiencia()%>">
-            <br>
-            Salario :<br>
-            <input type="text" name="txt_salario" value="<%= ofertaSeleccionada.getSalario()%>">
-            <br>
-            Vehiculo :<br>
-            <input type="text" name="txt_vehiculo" value="<%= ofertaSeleccionada.getVehiculo()%>">
-            <br>
-            Categoria
-            <select name="categoria_seleccionada">
-            <%
-                Modelo_Oferta ofertasModel = new Modelo_Oferta();
-                List<Categoria> listaCategorias = ofertasModel.obtenerCategorias();
-                Iterator<Categoria> categoriasIt = listaCategorias.iterator();
-                Categoria categoria = null;
-
-              
-                while(categoriasIt.hasNext()){
-                    categoria = categoriasIt.next();
-                    if(categoria.getCategoria().equals(ofertaSeleccionada.getCategoria())){
-             %>
-             <option value="<%= categoria.getCategoria()%>" selected="selected"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
-            <%
-                    }else{                    
-            %>
-                    <option value="<%= categoria.getCategoria()%>"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
-            <%
-                    }
-                }
-            %>
-            </select>
-            
-            Puesto
-            <select name="puesto_seleccionado">
-            <%
-                List<Puesto> listaPuestos = ofertasModel.obtenerPuestos();
-                Iterator<Puesto> puestosIt = listaPuestos.iterator();
-                Puesto puesto = null;
-                
-                while(puestosIt.hasNext()){
-                    puesto = puestosIt.next();
-                    if(puesto.getPuesto().equals(ofertaSeleccionada.getPuesto())){
-            %>
-                    <option value="<%= puesto.getPuesto()%>" selected="selected"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
-            <%
-                    }else{
-            %>
-                    <option value="<%= puesto.getPuesto()%>"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
-                    <%
-                    }
-                }
-            %>
-            </select>
+        <title>Ofertas</title>
         
-            <br>
-            <br>
-            <input type="submit" name="btn_guardar" value="Guardar">
-            <input type="submit" name="btn_eliminar" value="Eliminar">
-            <br>
-        </form>
-            
-            <a href="oferta.jsp" class="btn btn-primary">Regresar</a>
-            
-            
-            
-        <%
-            }else{
-        %>
-<!--    tosh    -   Lista de Ofertas    -->
-        <form action="Ctrl_Oferta" method="POST">
-            <select name="lst_oferta_seleccionada">
-                <%
-                    Modelo_Oferta ofertasModel = new Modelo_Oferta();
-                    List<Oferta> listaOfertas = ofertasModel.obtenerOfertasPorUsuario((String)sesion.getAttribute("usuario"));
-                    Iterator<Oferta> ofertasIt = listaOfertas.iterator();
-                    Oferta oferta = null;
-                    
-                    while(ofertasIt.hasNext()){
-                        oferta = ofertasIt.next();
-                %>
-                    <option value="<%= oferta.getOferta() %>"><%= oferta.getOferta() %> - <%= oferta.getTitulo()%></option>
-                <%
-                    }
-                %>
-            </select>
-            <input type="submit" name="btn_seleccionar" value="Seleccionar">
-        </form>
-        <br>
-          
-        <!--    tosh
-                Ctrl_Oferta = controlador
-        -->
-        <form action="Ctrl_Oferta" method="POST"> 
-            Titulo: <br>
-            <input type="text" name="txt_titulo" >
-            <br>
-            Descripcion: 
-            <br>
-            <input type="text" name="txt_descripcion" >
-            <br>
-            Numero de Plazas:<br>
-            <input type="text" name="txt_numeroPlazas">
-            <br>
-            Nivel de Experiencia:<br>
-            <input type="text" name="txt_nivelExperiencia">
-            <br>
-            Salario :<br>
-            <input type="text" name="txt_salario">
-            <br>
-            Vehiculo :<br>
-            <input type="text" name="txt_vehiculo">
-            <br>
-            Categoria
-            <select name="categoria_seleccionada">
-            <%
-                List<Categoria> listaCategorias = ofertasModel.obtenerCategorias();
-                Iterator<Categoria> categoriasIt = listaCategorias.iterator();
-                Categoria categoria = null;
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>    
+    
+  <body>
 
-              
-                while(categoriasIt.hasNext()){
-                    categoria = categoriasIt.next();
-            %>
-                    <option value="<%= categoria.getCategoria()%>"><%= categoria.getCategoria()%>-<%= categoria.getNombre()%></option>
-            <%
-                }
-            %>
-            </select>
-            
-            Puesto
-            <select name="puesto_seleccionado">
-            <%
-                List<Puesto> listaPuestos = ofertasModel.obtenerPuestos();
-                Iterator<Puesto> puestosIt = listaPuestos.iterator();
-                Puesto puesto = null;
-                
-                while(puestosIt.hasNext()){
-                puesto = puestosIt.next();
-            %>
-                <option value="<%= puesto.getPuesto()%>"><%= puesto.getPuesto()%>-<%= puesto.getNombre()%></option>
-            <%
-                }
-            %>
-            </select>
-        
-            <br>
-            <br>
-            <input type="submit" name="btn_crear" value="Crear">
-            <br>
-        </form>
+    <div class="container">
 
-        <%
-            }
-        %>        
-        
-    </body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Bolsa Empleo</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="general.jsp">Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ofertas
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="oferta.jsp">Mis Ofertas</a>
+                                <a class="dropdown-item" href="general.jsp">Todas las ofertas</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        Bienvenido: 
+                            <a href="perfil.jsp"> <%= sesion.getAttribute("usuario")%></a>
+                            <h1>|</h1>
+                            <a type="submit" class="btn btn-outline-success my-2 my-sm-0" href="index.jsp?cerrar=true">Cerrar Sesion</a>
+                    </form>
+                </div>
+            </nav>  
+            <section class="content-header">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" href="inicio.jsp" aria-current="page"><a href="general.jsp">Home</a></li>
+                    <li class="breadcrumb-item active" href="inicio.jsp" aria-current="page">Mis Ofertas</li>
+                </ol>
+            </section>
+                          
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                       
+                                        <th scope="col">Título</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">No. Plazas</th>
+                                        <th scope="col">Nivel Experiencia</th>
+                                        <th scope="col">Salario</th>
+                                        <th scope="col">Vehiculo</th>
+                                        <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                                  <%
+                        /*
+                        tosh - Obtenemos una lista del modelo "Oferta",
+                        e iteramos sobre la lista
+                        */
+                        Modelo_Oferta ofertasModel = new Modelo_Oferta();
+                        List<Oferta> listaOfertas;
+                        listaOfertas = ofertasModel.miOferta((String)sesion.getAttribute("usuario"));
+                        
+                        Iterator<Oferta> it = listaOfertas.iterator();
+                        Oferta of = null;
+                        while(it.hasNext()){
+                            %>
+                            <tr>
+                                <%
+                                    of = it.next();
+                                    %>
+
+                                    <td>
+                                        <%= of.getOferta() %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getTitulo() %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getDescripcion() %>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getNumeroPlazas()%>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getNivelExperiencia()%>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getSalario()%>
+
+                                    </td>
+
+                                    <td>
+
+                                        <%= of.getVehiculo()%>
+
+                                    </td>    
+
+                                    <td>
+                                        <form method="POST" action="Ctrl_Oferta" >
+                                        <a href="verOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-primary">Ver Oferta</a>
+                                        <%
+                                        if(Integer.parseInt(of.getEstado()) == 0){
+                                        %>
+                                           <input type="hidden" value="<%=of.getOferta()%>" name="txt_id" >
+                                           <input type="submit" name="btn_publicar" class="btn btn-danger" value="Publicar">
+                                        <%
+                                        }
+                                        %>
+                                        </form>       
+                                           
+                                    </td>
+
+                            </tr>    
+
+                            <%}%>
+                                
+                                <tbody>
+   
+  </tbody>
+</table>
+                            
+            </section>          
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>
