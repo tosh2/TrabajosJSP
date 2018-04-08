@@ -99,7 +99,7 @@ public class Ctrl_Registro extends HttpServlet {
                 if(politica.equals("2")){
                     rd = request.getRequestDispatcher("login.jsp");
                 }else{
-                   if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos                    
+                   if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos
                        
                        if(inputStream!=null){
                        

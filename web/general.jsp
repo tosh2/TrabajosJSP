@@ -252,7 +252,7 @@ if(request.getParameter("cbodis")!=null){
                                         <form method="POST" action="Ctrl_Oferta"  >
                                            <input type="hidden" value="<%=of.getOferta()%>" name="txt_id" >
                                            <input type="submit" name="btn_eliminar" class="btn btn-danger" value="Eliminar">  
-                                           <a href="verOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-warning">Editar</a>
+                                           <a href="editarOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-warning">Editar</a>
                                         </form>
                                         
                                         

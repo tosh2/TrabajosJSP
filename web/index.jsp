@@ -32,18 +32,20 @@
 
     </head>
     <body>
-        <div align="right">
+        <!--<div align="right">
             <a href="registro.jsp">Registrarse</a>
             |
             <a href="login.jsp">Log-In</a>
             <hr>            
-        </div>
-        <div>
+        </div>-->
+        <div class="jumbotron">
+            <div align="right" style="padding-right: 20px;">
+                <a href="registro.jsp" style="padding:10px;border-radius:5px;background: #337ab7;color:white;">Registrarse</a>
+                <a href="login.jsp" style="padding:10px 20px;border-radius:5px;background: #337ab7;color:white;">Log-In</a>
+                <hr>
+            </div>
             <h1>Bienvenido</h1>
-            
-            
-        </div>        
-        
+        </div>
         <%           
             if(request.getAttribute("tipo") != null){
             %>

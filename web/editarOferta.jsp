@@ -105,20 +105,20 @@
           
             <input type="hidden" name="txt_idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
             Titulo: <br>
-            <input class="form-control" type="text" name="txt_titulo" value="<%= oferta.getTitulo()%>" disabled>
+            <input class="form-control" type="text" name="txt_titulo" value="<%= oferta.getTitulo()%>">
             <br>
             Descripcion: 
             <br>
-            <input class="form-control" type="text" name="txt_descripcion" value="<%= oferta.getDescripcion()%>" disabled>
+            <input class="form-control" type="text" name="txt_descripcion" value="<%= oferta.getDescripcion()%>">
             <br>
             Numero de Plazas:<br>
-            <input class="form-control" type="text" name="txt_numeroPlazas" value="<%= oferta.getNumeroPlazas()%>" disabled>
+            <input class="form-control" type="text" name="txt_numeroPlazas" value="<%= oferta.getNumeroPlazas()%>">
             <br>
             Nivel de Experiencia:<br>
-            <input class="form-control" type="text" name="txt_nivelExperiencia" value="<%= oferta.getNivelExperiencia()%>" disabled>
+            <input class="form-control" type="text" name="txt_nivelExperiencia" value="<%= oferta.getNivelExperiencia()%>">
             <br>
             Salario :<br>
-            <input class="form-control" type="text" name="txt_salario" value="<%= oferta.getSalario()%>" disabled>
+            <input class="form-control" type="text" name="txt_salario" value="<%= oferta.getSalario()%>">
             <br>
            
              <div class="form-group">
@@ -131,24 +131,24 @@
                             <%
                                 if(oferta.getVehiculo().equals("1")){
                                     %>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" checked disabled>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" checked>
                                         <label class="form-check-label" for="inlineRadio1">Si</label>
                                     </div>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" disabled>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0">
                                         <label class="form-check-label" for="inlineRadio2">No</label>
                                     </div>
                                     
                                    
                                     <%}else{
                                     %>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" disabled>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1">
                                         <label class="form-check-label" for="inlineRadio1">Si</label>
                                     </div>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" checked disabled>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" checked>
                                         <label class="form-check-label" for="inlineRadio2">No</label>
                                     </div>
                                     <%}
@@ -159,19 +159,56 @@
             </div>
             <br>
             Categoria :<br>
-            <input class="form-control" type="text" name="txt_categoria" value="<%= oferta.getCategoria()%>" disabled>
+            <input class="form-control" type="text" name="txt_categoria" value="<%= oferta.getCategoria()%>">
             <br>
             Puesto :<br>
-            <input class="form-control" type="text" name="txt_puesto" value="<%= oferta.getPuesto()%>" disabled>
+            <input class="form-control" type="text" name="txt_puesto" value="<%= oferta.getPuesto()%>">
             <br>
         
             <br>
             <br>
-            <a href="general.jsp" style="padding:10px;border-radius:5px;background: #337ab7;color:white;">Regresar</a>
+            <input type="submit" class="btn btn-success" name="btn_postularse" value="Postularse">
+            <input type="submit" class="btn btn-warning" name="btn_editar" value="Editar">
             <br>
         </form>
-        </div>        
-        </section>          
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Edad</th>
+                  <th scope="col">Sexo</th>
+                </tr>
+            </thead>
+            <%
+                List<Usuario> usuarios = new Modelos.Modelo_Oferta().postulantes(oferta.getOferta());
+                Iterator<Usuario>usuariosIt = usuarios.iterator();
+                Usuario usuario = null;
+                while(usuariosIt.hasNext()){
+                    usuario = usuariosIt.next();
+            %>
+            
+            <tr>
+                <td><%=  usuario.getNombre()    %>
+                </td>
+                <td><%=  usuario.getApellido()    %>
+                </td>
+                <td><%=  usuario.getCorreo()    %>
+                </td>
+                <td><%=  usuario.getEdad()    %>
+                </td>
+                <td><%=  usuario.getSexo()    %>
+                </td>
+            </tr>    
+            <%
+                }
+            %>
+        </table>
+        
+                
+            </section>          
     </div> <!-- /container -->
 
 

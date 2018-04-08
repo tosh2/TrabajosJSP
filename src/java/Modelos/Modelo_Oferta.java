@@ -28,6 +28,11 @@ public class Modelo_Oferta {
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
+    String sql1 = "";
+    Connection conn1;
+    PreparedStatement pst1;
+    ResultSet rs1;
+    
     
     
     public List obtenerOfertas(){
@@ -342,6 +347,7 @@ public class Modelo_Oferta {
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
+            conn1 = DriverManager.getConnection(db.getUrl(),db.getUserdb(),db.getPassdb());
             sql = "SELECT * FROM oferta WHERE oferta.oferta = '"+idOferta+"'";
             pst=conn.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -351,8 +357,22 @@ public class Modelo_Oferta {
                                                 rs.getString("numeroPlazas"),rs.getString("nivelExperiencia"),
                                                 rs.getString("salario"),rs.getString("vehiculo"));
                 oferta.setEstado(rs.getString("estado"));
-                oferta.setCategoria(rs.getString("categoria_categoria"));
-                oferta.setPuesto(rs.getString("puesto_puesto"));
+                //seleccion del nombre de categoria por medio del id
+                sql1 = "SELECT * FROM categoria WHERE categoria.categoria = '"+rs.getString("categoria_categoria")+"'";
+                pst1=conn1.prepareStatement(sql1);
+                rs1 = pst1.executeQuery();
+                while(rs1.next()){
+                    oferta.setCategoria(rs1.getString("nombre"));
+                }
+                rs1.close();
+                
+                sql1 = "SELECT * FROM puesto WHERE puesto.puesto = '"+rs.getString("puesto_puesto")+"'";
+                pst1=conn1.prepareStatement(sql1);
+                rs1 = pst1.executeQuery();
+                while(rs1.next()){
+                    oferta.setPuesto(rs1.getString("nombre"));
+                }
+                rs1.close();
             }
             
             conn.close();
