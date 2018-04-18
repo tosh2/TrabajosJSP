@@ -20,6 +20,10 @@
         <servlet-name>Ctrl_veroferta</servlet-name>
         <servlet-class>Controladores.Ctrl_veroferta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ctrk_Blog</servlet-name>
+        <servlet-class>Controladores.Ctrl_Blog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Ctrl_Login</servlet-name>
         <url-pattern>/Ctrl_Login</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Ctrl_veroferta</servlet-name>
         <url-pattern>/Ctrl_veroferta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ctrk_Blog</servlet-name>
+        <url-pattern>/Ctrk_Blog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

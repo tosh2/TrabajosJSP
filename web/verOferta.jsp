@@ -1,3 +1,9 @@
+
+
+<%@page import="Classes.Postulacion"%>
+<%@page import="Modelos.Modelo_Postulacion"%>
+<%@page import="Modelos.Modelo_Oferta"%>
+<%@page import="Modelos.Modelo_Usuario"%>
 <%-- 
     Document   : verOferta
     Created on : 02-abr-2018, 19:06:41
@@ -12,173 +18,199 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>
 
-<%
-    /*
-    Utilizado con: Ctrl_Login
-    "nivel", y "nombre", son atributos enviados desde: Ctrl_Login
-    */
-    HttpSession sesion = request.getSession();
-            
-    int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
-    if(request.getAttribute("tipo")!=null){
-        tipo = (Integer)request.getAttribute("tipo");
-        sesion.setAttribute("usuario", request.getAttribute("usuario"));
-        sesion.setAttribute("tipo", tipo);
-    }  
-%>
 
-       
+
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ofertas</title>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>    
-    
-  <body>
 
-    <div class="container">
+    <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Bolsa Empleo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="general.jsp">Inicio <span class="sr-only">(current)</span></a>
-                        </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Ofertas
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="oferta.jsp">Mis Ofertas</a>
-                                <a class="dropdown-item" href="general.jsp">Todas las ofertas</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        Bienvenido: 
-                            <a href="perfil.jsp"> <%= sesion.getAttribute("usuario")%></a>
-                            <h1>|</h1>
-                            <a type="submit" class="btn btn-outline-success my-2 my-sm-0" href="index.jsp?cerrar=true">Cerrar Sesion</a>
-                    </form>
-                </div>
-            </nav>  
-            <section class="content-header">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" href="inicio.jsp" aria-current="page"><a href="general.jsp" >Home</a></li>
-                    <li class="breadcrumb-item active" href="inicio.jsp" aria-current="page">Editar Oferta</li>
-                </ol>
-            </section>
-            <section class="content" >
-                 <%
-        Oferta oferta = new Modelos.Modelo_Oferta().obtenerOferta((String)request.getParameter("idOferta"));
-            
-        if(request.getParameter("idOferta")!=null){    
-        %>
-            <h1>Oferta # <%=    oferta.getOferta()  %></h1>
-        <%
-        }    
-        %>
-                <form>
-            <input type="range" name="points" min="0" max="10">
-        </form>
-        <form>
-            Quantity (between 1 and 5):
-            <input type="number" name="quantity" min="1" max="5">
-            <input type="number" required name="price" min="0" value="0" step="0.01">
-        </form>
-        <hr>
-        <div class="col-md-6">
-        <form action="Ctrl_Oferta" method="POST"> 
-          
-            <input type="hidden" name="txt_idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
-            Titulo: <br>
-            <input class="form-control" type="text" name="txt_titulo" value="<%= oferta.getTitulo()%>" disabled>
-            <br>
-            Descripcion: 
-            <br>
-            <input class="form-control" type="text" name="txt_descripcion" value="<%= oferta.getDescripcion()%>" disabled>
-            <br>
-            Numero de Plazas:<br>
-            <input class="form-control" type="text" name="txt_numeroPlazas" value="<%= oferta.getNumeroPlazas()%>" disabled>
-            <br>
-            Nivel de Experiencia:<br>
-            <input class="form-control" type="text" name="txt_nivelExperiencia" value="<%= oferta.getNivelExperiencia()%>" disabled>
-            <br>
-            Salario :<br>
-            <input class="form-control" type="text" name="txt_salario" value="<%= oferta.getSalario()%>" disabled>
-            <br>
-           
-             <div class="form-group">
-                            <div>
-                                <label for="exampleFormControlInput1">Vehiculo: </label>
-                            </div>
-                            
-                            
-                            
-                            <%
-                                if(oferta.getVehiculo().equals("1")){
-                                    %>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" checked disabled>
-                                        <label class="form-check-label" for="inlineRadio1">Si</label>
-                                    </div>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" disabled>
-                                        <label class="form-check-label" for="inlineRadio2">No</label>
-                                    </div>
-                                    
-                                   
-                                    <%}else{
-                                    %>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" disabled>
-                                        <label class="form-check-label" for="inlineRadio1">Si</label>
-                                    </div>
-                                    <div class="form-check form-check-inline" disabled>
-                                        <input class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" checked disabled>
-                                        <label class="form-check-label" for="inlineRadio2">No</label>
-                                    </div>
-                                    <%}
-                                    %>
-            
-                            
-                            
+        <%@ include file="navBar.jsp" %>
+        <div class="contenedor">
+
+            <%                     Oferta oferta = new Modelos.Modelo_Oferta().obtenerOferta((String) request.getParameter("idOferta"));
+                Modelo_Usuario modeloUsuario = new Modelo_Usuario();
+                Usuario usuarioLog = modeloUsuario.obtenerInformacionUsuario((String) sesion.getAttribute("usuario"));
+                if (request.getParameter("idOferta") != null) {
+            %>
+            <h2 style="text-align: center">Oferta # <%=    oferta.getOferta()%></h2>
+            <%
+                }
+            %>
+            <hr>
+            <div class="col-md-6">
+                <form action="Ctrl_Oferta" method="POST"> 
+
+                    <input type="hidden" name="txt_idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
+                    Descripcion: 
+                    <br>
+                    <input disabled class="form-control" type="text" name="txt_descripcion" value="<%= oferta.getDescripcion()%>">
+                    <br>
+                    Numero de Plazas:<br>
+                    <input disabled class="form-control" type="number" min="1" max="100" name="txt_numeroPlazas" value="<%= oferta.getNumeroPlazas()%>">
+                    <br>
+                    Nivel de Experiencia:<br>
+                    <input disabled class="form-control" type="number" min="0" max="100" name="txt_nivelExperiencia" value="<%= oferta.getNivelExperiencia()%>">
+                    <br>
+                    Salario :<br>
+                    <input disabled class="form-control" type="number" name="txt_salario" value="<%= oferta.getSalario()%>">
+                    <br>
+
+                    <div class="form-group">
+                        <div>
+                            <label for="exampleFormControlInput1">Vehiculo: </label>
+                        </div>
+
+
+
+                        <%
+                            if (oferta.getVehiculo().equals("1")) {
+                        %>
+                        <div class="form-check form-check-inline">
+                            <input disabled class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1" checked>
+                            <label class="form-check-label" for="inlineRadio1">Si</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input disabled class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0">
+                            <label class="form-check-label" for="inlineRadio2">No</label>
+                        </div>
+
+
+                        <%} else {
+                        %>
+                        <div class="form-check form-check-inline">
+                            <input disabled class="form-check-input" type="radio" name="txt_vehiculo"  id="txt_vehiculo" value="1">
+                            <label class="form-check-label" for="inlineRadio1">Si</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input disabled class="form-check-input" type="radio" name="txt_vehiculo" id="txt_vehiculo" value="0" checked>
+                            <label class="form-check-label" for="inlineRadio2">No</label>
+                        </div>
+                        <%}
+                        %>
+
+
+
+                    </div>
+
+                    Categoria :<br>
+                    <input disabled class="form-control" type="text" name="txt_categoria" value="<%= oferta.getCategoria()%>">
+                    <br>
+                    Puesto :<br>
+                    <input disabled class="form-control" type="text" name="txt_puesto" value="<%= oferta.getPuesto()%>">
+                    <br>
+
+                    <br>
+                    <br>
+
+                </form>
             </div>
-            <br>
-            Categoria :<br>
-            <input class="form-control" type="text" name="txt_categoria" value="<%= oferta.getCategoria()%>" disabled>
-            <br>
-            Puesto :<br>
-            <input class="form-control" type="text" name="txt_puesto" value="<%= oferta.getPuesto()%>" disabled>
-            <br>
-        
-            <br>
-            <br>
-            <a href="general.jsp" style="padding:10px;border-radius:5px;background: #337ab7;color:white;">Regresar</a>
-            <br>
-        </form>
-        </div>        
-        </section>          
-    </div> <!-- /container -->
+            <h2 style="text-align: center">Postulantes</h2>
+            <hr>
+            <form action="Ctrl_Oferta" method="POST" >       
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Opciones</th>
+                        </tr>
+                    </thead>
+                    <%
+                        List<Usuario> usuarios = new Modelos.Modelo_Oferta().postulantes(oferta.getOferta());
+                        Iterator<Usuario> usuariosIt = usuarios.iterator();
+                        Usuario usuario = null;
+                        while (usuariosIt.hasNext()) {
+                            usuario = usuariosIt.next();
+                    %>
+
+                    <tr>
+                        <td><%=  usuario.getNombre()%>
+                        </td>
+                        <td><%=  usuario.getApellido()%>
+                        </td>
+                        <td><%=  usuario.getCorreo()%>
+                        </td>
+                        <td><%=  usuario.getEdad()%>
+                        </td>
+                        <td><%=  usuario.getSexo()%>
+                        </td>
+                        <%
+
+                            Modelo_Oferta ofertaModel = new Modelo_Oferta();
+                            Boolean isOfertaUsuario = ofertaModel.isOfertaUsuario(oferta.getOferta(), (String) sesion.getAttribute("usuario"));
+                            Modelo_Postulacion modeloPost = new Modelo_Postulacion();
+                            Postulacion postulacion = modeloPost.getPostulacion(usuario.getUsuario(), oferta.getOferta());
+                        %>
+                        <td >
+                            <%if (postulacion != null) {%> 
+                            <% if (postulacion.getEstado().equalsIgnoreCase("0")) {%>
+                    <spam style="color: darkorange">Pendiente</spam>
+                        <%} else if (postulacion.getEstado().equalsIgnoreCase("1")) {%>
+                    <spam style="color: green">Aceptada</spam>
+                        <%} else {%>
+                    <spam style="color: red">Rechazada</spam>
+                        <%}%>
+                        <%}%>
+                    </td>
+
+                    <td>
+                        <%if (postulacion != null) {%> 
+                        <%if (isOfertaUsuario) {%> 
+
+                        <form action="Ctrl_Oferta" method="POST">
+                            <input type="hidden" name="idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
+                            <input type="hidden" name="idPostulante" value="<%=usuario.getUsuario()%>"  readonly="true">
+                            <input type="hidden" name="idUsuario" value="<%=usuarioLog.getUsuario()%>"  readonly="true">
+
+                            <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("2")) {%>
+                            <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar">
+
+                            <% } else { %>
+                            <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar" disabled>
+                            <%}%>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+                            <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("1")) {%>
+
+                            <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar"> 
+                            <% } else { %>
+                            <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar" disabled> 
+                            <%}%>
+
+                            <%}%>
+                        </form>
+                        <%}%>
+                    </td>
+
+                    </tr>    
+                    <%
+                        }
+                    %>
+                </table>
+            </form>
+
+
+        </div> <!-- /container -->
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
 </html>

@@ -10,6 +10,7 @@ package Classes;
  * @author tosh
  */
 public class Oferta {
+
     private String oferta;
     private String titulo;
     private String descripcion;
@@ -17,20 +18,20 @@ public class Oferta {
     private String nivelExperiencia;
     private String salario;
     private String vehiculo;
-    
+
     private String categoria;
     private String puesto;
     private String estado;
 
     public Oferta(String oferta, String titulo, String descripcion,
-                    String numeroPlazas, String nivelExperiencia, String salario, String vehiculo){
-        this.oferta             =   oferta;
-        this.titulo             =   titulo;
-        this.descripcion        =   descripcion;
-        this.numeroPlazas       =   numeroPlazas;
-        this.nivelExperiencia   =   nivelExperiencia;
-        this.salario            =   salario;
-        this.vehiculo           =   vehiculo;
+            String numeroPlazas, String nivelExperiencia, String salario, String vehiculo) {
+        this.oferta = oferta;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.numeroPlazas = numeroPlazas;
+        this.nivelExperiencia = nivelExperiencia;
+        this.salario = salario;
+        this.vehiculo = vehiculo;
     }
 
     /**
@@ -39,7 +40,7 @@ public class Oferta {
     public String getOferta() {
         return oferta;
     }
-    
+
     /**
      * @return the titulo
      */

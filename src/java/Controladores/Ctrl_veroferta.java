@@ -35,23 +35,24 @@ public class Ctrl_veroferta extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             RequestDispatcher rd = null;
-            
+
             Modelo_Oferta ofertaModel = new Modelo_Oferta();
-            
-            int resultado = 0;  /*  tosh - Verifica si CRUD se ejecuto correctamente: 0 = error */
-            
-                        /*  obtenemos Correo/Usuario actual */
-            String usuario = (String)request.getSession().getAttribute("usuario");
-            
-            if(request.getParameter("btn_postularse")    !=  null){
-                
+
+            int resultado = 0;
+            /*  tosh - Verifica si CRUD se ejecuto correctamente: 0 = error */
+
+ /*  obtenemos Correo/Usuario actual */
+            String usuario = (String) request.getSession().getAttribute("usuario");
+
+            if (request.getParameter("btn_postularse") != null) {
+
                 String idOferta = request.getParameter("txt_idOferta");
-                
-                        /*  Creamos la oferta **verificar si es correcta o no   */
+
+                /*  Creamos la oferta **verificar si es correcta o no   */
                 resultado = ofertaModel.postularse(usuario, idOferta);
-                rd = request.getRequestDispatcher("verOferta.jsp?idOferta="+idOferta);
+                rd = request.getRequestDispatcher("verOferta.jsp?idOferta=" + idOferta);
             }
-            
+
             rd.forward(request, response);
         }
     }

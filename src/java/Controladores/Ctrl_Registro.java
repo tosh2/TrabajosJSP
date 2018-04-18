@@ -45,9 +45,9 @@ public class Ctrl_Registro extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
             Modelo_Usuario regModel = new Modelo_Usuario();
-            
+
             RequestDispatcher rd = null;
             int resultado = 0;
             String nombre;
@@ -58,10 +58,10 @@ public class Ctrl_Registro extends HttpServlet {
             String edad;
             String sexo;
             String tipo_usuario;
-            String politica;                       
+            String politica;
             InputStream inputStream = null; // input stream of the upload file
-            
-            if(request.getParameter("btn_registrar") != null){
+
+            if (request.getParameter("btn_registrar") != null) {
                 nombre = request.getParameter("txt_nombre");
                 apellido = request.getParameter("txt_apellido");
                 correo = request.getParameter("txt_correo");
@@ -70,9 +70,8 @@ public class Ctrl_Registro extends HttpServlet {
                 edad = request.getParameter("txt_edad");
                 sexo = request.getParameter("sexo");
                 tipo_usuario = request.getParameter("tipo");
-                politica = request.getParameter("politica");                
-                
-                
+                politica = request.getParameter("politica");
+
                 Part filePart = request.getPart("photo");
                 if (filePart != null) {
                     // prints out some information for debugging
@@ -83,9 +82,7 @@ public class Ctrl_Registro extends HttpServlet {
                     // obtains input stream of the upload file
                     inputStream = filePart.getInputStream();
                 }
-                
-                
-                
+
                 //ps = conn.prepareStatement(sqlQuery);
                 //ps.setBinaryStream(1, fis, (int) file.length());
                 out.println(nombre);
@@ -96,31 +93,28 @@ public class Ctrl_Registro extends HttpServlet {
                 out.println(edad);
                 out.println(sexo);
                 out.println(tipo_usuario);
-                if(politica.equals("2")){
+                if (politica.equals("2")) {
                     rd = request.getRequestDispatcher("login.jsp");
-                }else{
-                   if(!regModel.existeCorreo(correo)){//valida si el correo que se esta registrando, ya existe en la base de datos
-                       
-                       if(inputStream!=null){
-                       
-                            System.out.println("hola aqui !!!");
-                            resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario,inputStream);
-                            request.setAttribute("usuario", correo);
-                            request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
-                            rd = request.getRequestDispatcher("registro.jsp");
-                       }
-                       
-                       
-                   }else{
-                       //si ya existe, entonces no lo guarda
-                       System.out.println("hola aqui !!!");
-                       request.setAttribute("error", "error, el correo ya existe");
-                       rd = request.getRequestDispatcher("registro.jsp");
-                   }   
-                }                
-            }            
+                } else if (!regModel.existeCorreo(correo)) {//valida si el correo que se esta registrando, ya existe en la base de datos
+
+                    if (inputStream != null) {
+
+                        System.out.println("hola aqui !!!");
+                        resultado = regModel.registrarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario, inputStream);
+                        request.setAttribute("usuario", correo);
+                        request.setAttribute("tipo", Integer.parseInt(tipo_usuario));
+                        rd = request.getRequestDispatcher("registro.jsp");
+                    }
+
+                } else {
+                    //si ya existe, entonces no lo guarda
+                    System.out.println("hola aqui !!!");
+                    request.setAttribute("error", "error, el correo ya existe");
+                    rd = request.getRequestDispatcher("registro.jsp");
+                }
+            }
             rd.forward(request, response);
-            
+
             /*out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

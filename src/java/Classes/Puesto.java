@@ -10,6 +10,7 @@ package Classes;
  * @author tosh
  */
 public class Puesto {
+
     private String puesto;
 
     public String getPuesto() {
@@ -25,11 +26,11 @@ public class Puesto {
     }
     private String nombre;
     private String descripcion;
-    
-    public Puesto(String puesto, String nombre, String descripcion){
-        this.puesto             =   puesto;
-        this.nombre             =   nombre;
-        this.descripcion        =   descripcion;
+
+    public Puesto(String puesto, String nombre, String descripcion) {
+        this.puesto = puesto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
 }

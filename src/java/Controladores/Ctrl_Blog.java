@@ -5,10 +5,8 @@
  */
 package Controladores;
 
-import Modelos.Modelo_Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author tosh
+ * @author Jose
  */
-public class Ctrl_Perfil extends HttpServlet {
+public class Ctrl_Blog extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,36 +32,15 @@ public class Ctrl_Perfil extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
-            Modelo_Usuario regModel = new Modelo_Usuario();
-
-            RequestDispatcher rd = null;
-            int resultado = 0;
-            String nombre;
-            String apellido;
-            String correo;
-            String password;
-            String password_conf;
-            String edad;
-            String sexo;
-            String tipo_usuario;
-            if (request.getParameter("btn_guardar") != null) {
-                nombre = request.getParameter("txt_nombre");
-                apellido = request.getParameter("txt_apellido");
-                correo = request.getParameter("txt_correo");
-                password = request.getParameter("txt_password");
-                password_conf = request.getParameter("txt_password_conf");
-                edad = request.getParameter("txt_edad");
-                sexo = request.getParameter("sexo");
-                tipo_usuario = request.getParameter("tipo");
-
-                resultado = regModel.actualizarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
-
-                rd = request.getRequestDispatcher("perfil.jsp");
-            }
-
-            rd.forward(request, response);
-
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Ctrk_Blog</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Ctrk_Blog at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

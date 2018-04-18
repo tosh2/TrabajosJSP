@@ -2,24 +2,23 @@ package Modelos;
 
 /**
  *
- * @author tosh
- * url  =   cadena conexion con MySQL
- * user =   usuario de BD
- * contra = contraseña de usuario de BD
- * driver = Driver de Java con MySQL
+ * @author tosh url = cadena conexion con MySQL user = usuario de BD contra =
+ * contraseña de usuario de BD driver = Driver de Java con MySQL
  */
-public class Modelo_ConexionDb {    /*  tosh - Editar variables de clase para conexion  */
-    private String          url; 
-    private String          driver;
-    private final String    userdb  = "root";   
-    private final String    passdb  = "";
-    private final String    port    = ":3306";
+public class Modelo_ConexionDb {
 
-    public Modelo_ConexionDb(){
-        this.url    =   "jdbc:mysql://localhost"+port+"/analisis";
-        this.driver =   "com.mysql.jdbc.Driver";
+    /*  tosh - Editar variables de clase para conexion  */
+    private String url;
+    private String driver;
+    private final String userdb = "root";
+    private final String passdb = "201213402";
+    private final String port = ":3306";
+
+    public Modelo_ConexionDb() {
+        this.url = "jdbc:mysql://localhost" + port + "/analisis";
+        this.driver = "com.mysql.jdbc.Driver";
     }
-    
+
     /**
      * @return the url
      */
@@ -47,5 +46,5 @@ public class Modelo_ConexionDb {    /*  tosh - Editar variables de clase para co
     public String getDriver() {
         return driver;
     }
-    
+
 }

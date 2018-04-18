@@ -41,7 +41,7 @@
         <a href="../index.jsp?cerrar=true">Mi Perfil</a>
         <br>
         <a href="../index.jsp?cerrar=true">Mi Empresa</a>
-        
+
         <br>
     </body>
 </html>

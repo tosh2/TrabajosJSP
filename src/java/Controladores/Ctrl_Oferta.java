@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Modelos.Modelo_Oferta;
+import Modelos.Modelo_Postulacion;
 import javax.servlet.RequestDispatcher;
 
 /**
@@ -30,14 +31,15 @@ public class Ctrl_Oferta extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             RequestDispatcher rd = null;
-            
+
             Modelo_Oferta ofertaModel = new Modelo_Oferta();
-            
-            int resultado = 0;  /*  tosh - Verifica si CRUD se ejecuto correctamente: 0 = error */
-                                
-                                /*  atributos de oferta */
+
+            int resultado = 0;
+            /*  tosh - Verifica si CRUD se ejecuto correctamente: 0 = error */
+
+ /*  atributos de oferta */
             String titulo;
             String descripcion;
             String numeroPlazas;
@@ -46,75 +48,93 @@ public class Ctrl_Oferta extends HttpServlet {
             String vehiculo;
             String categoria;
             String puesto;
-            
-                        /*  obtenemos Correo/Usuario actual */
-            String usuario = (String)request.getSession().getAttribute("usuario");
-            
-            if(request.getParameter("btn_crear") != null){
-                
-                        /*  obtenemos valores de atributos de oferta    */
-                titulo              = request.getParameter("txt_titulo");
-                descripcion         = request.getParameter("txt_descripcion");
-                numeroPlazas        = request.getParameter("txt_numeroPlazas");
-                nivelExperiencia    = request.getParameter("txt_nivelExperiencia");
-                salario             = request.getParameter("txt_salario");
-                vehiculo            = request.getParameter("txt_vehiculo");
-                categoria           = request.getParameter("categoria_seleccionada");
-                puesto              = request.getParameter("puesto_seleccionado");
-                
-                        /*  Creamos la oferta **verificar si es correcta o no   */
-                resultado = ofertaModel.crearOferta(usuario,titulo, descripcion, numeroPlazas, 
-                                                    nivelExperiencia, salario, vehiculo, categoria, puesto);
-                
+
+            /*  obtenemos Correo/Usuario actual */
+            String usuario = (String) request.getSession().getAttribute("usuario");
+
+            if (request.getParameter("btn_crear") != null) {
+
+                /*  obtenemos valores de atributos de oferta    */
+                titulo = request.getParameter("txt_titulo");
+                descripcion = request.getParameter("txt_descripcion");
+                numeroPlazas = request.getParameter("txt_numeroPlazas");
+                nivelExperiencia = request.getParameter("txt_nivelExperiencia");
+                salario = request.getParameter("txt_salario");
+                vehiculo = request.getParameter("txt_vehiculo");
+                categoria = request.getParameter("categoria_seleccionada");
+                puesto = request.getParameter("puesto_seleccionado");
+
+                /*  Creamos la oferta **verificar si es correcta o no   */
+                resultado = ofertaModel.crearOferta(usuario, titulo, descripcion, numeroPlazas,
+                        nivelExperiencia, salario, vehiculo, categoria, puesto);
+
                 System.out.println(request.getParameter("categoria_seleccionada"));
                 System.out.println(request.getParameter("puesto_seleccionado"));
-                
+
                 rd = request.getRequestDispatcher("oferta.jsp");
-                
-            }else if(request.getParameter("btn_seleccionar")   !=  null){
+
+            } else if (request.getParameter("btn_seleccionar") != null) {
                 String ofertaseleccionada = request.getParameter("lst_oferta_seleccionada");
-                rd = request.getRequestDispatcher("oferta.jsp?idOferta="+ofertaseleccionada);
-            }else if(request.getParameter("btn_guardar")    !=  null){
-                titulo              = request.getParameter("txt_titulo");
-                descripcion         = request.getParameter("txt_descripcion");
-                numeroPlazas        = request.getParameter("txt_numeroPlazas");
-                nivelExperiencia    = request.getParameter("txt_nivelExperiencia");
-                salario             = request.getParameter("txt_salario");
-                vehiculo            = request.getParameter("txt_vehiculo");
-                categoria           = request.getParameter("categoria_seleccionada");
-                puesto              = request.getParameter("puesto_seleccionado");
-                
+                rd = request.getRequestDispatcher("oferta.jsp?idOferta=" + ofertaseleccionada);
+            } else if (request.getParameter("btn_guardar") != null) {
+                titulo = request.getParameter("txt_titulo");
+                descripcion = request.getParameter("txt_descripcion");
+                numeroPlazas = request.getParameter("txt_numeroPlazas");
+                nivelExperiencia = request.getParameter("txt_nivelExperiencia");
+                salario = request.getParameter("txt_salario");
+                vehiculo = request.getParameter("txt_vehiculo");
+                categoria = request.getParameter("categoria_seleccionada");
+                puesto = request.getParameter("puesto_seleccionado");
+
                 String idOferta = request.getParameter("txt_id");
-                
-                        /*  Creamos la oferta **verificar si es correcta o no   */
-                resultado = ofertaModel.actualizarOferta(idOferta, titulo, descripcion, numeroPlazas, 
-                                                        nivelExperiencia, salario, vehiculo, categoria, puesto);
+
+                /*  Creamos la oferta **verificar si es correcta o no   */
+                resultado = ofertaModel.actualizarOferta(idOferta, titulo, descripcion, numeroPlazas,
+                        nivelExperiencia, salario, vehiculo, categoria, puesto);
                 System.out.println("Hola mundo");
                 rd = request.getRequestDispatcher("oferta.jsp");
-            }else if(request.getParameter("btn_eliminar")   !=null){
+            } else if (request.getParameter("btn_eliminar") != null) {
                 String idOferta = request.getParameter("txt_id");
-                resultado   =   ofertaModel.eliminarOferta(idOferta);
+                resultado = ofertaModel.eliminarOferta(idOferta);
                 rd = request.getRequestDispatcher("general.jsp");
-            }else if(request.getParameter("btn_publicar")   !=null){
+            } else if (request.getParameter("btn_publicar") != null) {
                 String idOferta = request.getParameter("txt_id");
-                resultado   =   ofertaModel.publicarOferta(idOferta);
+                resultado = ofertaModel.publicarOferta(idOferta);
                 rd = request.getRequestDispatcher("general.jsp");
-            }else if(request.getParameter("btn_editar")   !=null){
+            } else if (request.getParameter("btn_editar") != null) {
                 String idOferta = request.getParameter("txt_idOferta");
-                titulo              = request.getParameter("txt_titulo");
-                descripcion         = request.getParameter("txt_descripcion");
-                numeroPlazas        = request.getParameter("txt_numeroPlazas");
-                nivelExperiencia    = request.getParameter("txt_nivelExperiencia");
-                salario             = request.getParameter("txt_salario");
-                vehiculo            = request.getParameter("txt_vehiculo");
-                categoria           = request.getParameter("txt_categoria");
-                puesto              = request.getParameter("txt_puesto");
-                resultado   =   ofertaModel.actualizarOferta(idOferta,titulo,descripcion,numeroPlazas,nivelExperiencia,salario,vehiculo, categoria,puesto);
+                titulo = request.getParameter("txt_titulo");
+                descripcion = request.getParameter("txt_descripcion");
+                numeroPlazas = request.getParameter("txt_numeroPlazas");
+                nivelExperiencia = request.getParameter("txt_nivelExperiencia");
+                salario = request.getParameter("txt_salario");
+                vehiculo = request.getParameter("txt_vehiculo");
+                categoria = request.getParameter("txt_categoria");
+                puesto = request.getParameter("txt_puesto");
+                resultado = ofertaModel.actualizarOferta(idOferta, titulo, descripcion, numeroPlazas, nivelExperiencia, salario, vehiculo, categoria, puesto);
                 rd = request.getRequestDispatcher("verOferta.jsp");
+            } else if (request.getParameter("btn_postularse") != null) {
+                String idOferta = request.getParameter("btn_postularse");
+                ofertaModel.postularse(usuario, idOferta);
+                rd = request.getRequestDispatcher("general.jsp");
+            } else if (request.getParameter("btn_aceptar") != null) {
+                String idPostulante = request.getParameter("idPostulante");
+                String idUsuario = request.getParameter("idUsuario");
+                String idOferta = request.getParameter("idOferta");
+                Modelo_Postulacion modeloPost = new Modelo_Postulacion();
+                modeloPost.aceptarPostulante(idPostulante, idUsuario, idOferta);
+                rd = request.getRequestDispatcher("verOferta.jsp?idOferta=" + idOferta);
+            } else if (request.getParameter("btn_rechazar") != null) {
+                String idPostulante = request.getParameter("idPostulante");
+                String idUsuario = request.getParameter("idUsuario");
+                String idOferta = request.getParameter("idOferta");
+                Modelo_Postulacion modeloPost = new Modelo_Postulacion();
+                modeloPost.rechazarPostulante(idPostulante, idUsuario, idOferta);
+                rd = request.getRequestDispatcher("verOferta.jsp?idOferta=" + idOferta);
             }
-            
+
             rd.forward(request, response);
-  
+
         }
     }
 
@@ -131,6 +151,7 @@ public class Ctrl_Oferta extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
@@ -146,8 +167,6 @@ public class Ctrl_Oferta extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-  
 
     /**
      * Returns a short description of the servlet.

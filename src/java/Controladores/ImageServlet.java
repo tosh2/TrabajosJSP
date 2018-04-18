@@ -41,45 +41,29 @@ public class ImageServlet extends HttpServlet {
         String imageName = request.getPathInfo().substring(1); // Returns "foo.png".
         try {
             Class.forName(dataSource.getDriver());  //Crea Conexion con DB
-            
-            
-            try (Connection connection = DriverManager.getConnection(dataSource.getUrl(),dataSource.getUserdb(),dataSource.getPassdb()); PreparedStatement statement = connection.prepareStatement(SQL_FIND)) {
+
+            try (Connection connection = DriverManager.getConnection(dataSource.getUrl(), dataSource.getUserdb(), dataSource.getPassdb()); PreparedStatement statement = connection.prepareStatement(SQL_FIND)) {
                 statement.setString(1, imageName);
 
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    byte[] content = resultSet.getBytes(1);
-                    response.setContentType(getServletContext().getMimeType(imageName));
-                    response.setContentLength(content.length);
-                    response.getOutputStream().write(content);
-                } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        byte[] content = resultSet.getBytes(1);
+                        response.setContentType(getServletContext().getMimeType(imageName));
+                        response.setContentLength(content.length);
+                        response.getOutputStream().write(content);
+                    } else {
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
+                    }
                 }
+            } catch (SQLException e) {
+                throw new ServletException("Something failed at SQL/DB level.", e);
             }
-        } catch (SQLException e) {
-            throw new ServletException("Something failed at SQL/DB level.", e);
-        }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         } catch (ClassNotFoundException ex) {
-        
-            
-            
-            
+
             Logger.getLogger(ImageServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
     }
 
 }

@@ -10,6 +10,7 @@ package Classes;
  * @author tosh
  */
 public class Categoria {
+
     private String categoria;
 
     public String getCategoria() {
@@ -26,10 +27,10 @@ public class Categoria {
     private String nombre;
     private String descripcion;
 
-    public Categoria(String categoria, String nombre, String descripcion){
-        this.categoria             =   categoria;
-        this.nombre             =   nombre;
-        this.descripcion        =   descripcion;
+    public Categoria(String categoria, String nombre, String descripcion) {
+        this.categoria = categoria;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
-    
+
 }

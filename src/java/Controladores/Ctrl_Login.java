@@ -43,34 +43,34 @@ public class Ctrl_Login extends HttpServlet {
              */
             String usuario;
             String password;
-            
-            int tipo = 0;   /*  1 = Ofertador ; 2 = Ofertante   */
+
+            int tipo = 0;
+            /*  1 = Ofertador ; 2 = Ofertante   */
 
             Modelo_Ingreso log = new Modelo_Ingreso();
-            RequestDispatcher rd    =   null;
-            
-            
-            if(request.getParameter("btn_ingresar") != null){
-                usuario     =   request.getParameter("txt_usuario");
-                password    =   request.getParameter("txt_password");
+            RequestDispatcher rd = null;
+
+            if (request.getParameter("btn_ingresar") != null) {
+                usuario = request.getParameter("txt_usuario");
+                password = request.getParameter("txt_password");
                 //nivel = acc.validar(nombre, contra);
                 tipo = log.validarAcceso(usuario, password);
-                if(tipo==0){
+                if (tipo == 0) {
                     //datos incorrectos
-                    
-                }else if(tipo==1){
+
+                } else if (tipo == 1) {
                     request.setAttribute("usuario", usuario);
                     request.setAttribute("tipo", tipo);
-                }else{
+                } else {
                     request.setAttribute("usuario", usuario);
                     request.setAttribute("tipo", tipo);
                 }
-                rd  =   request.getRequestDispatcher("login.jsp");                
-                
+                rd = request.getRequestDispatcher("login.jsp");
+
             }
-            
+
             rd.forward(request, response);  //direccionamos al index.jsp
-            
+
         }
     }
 
