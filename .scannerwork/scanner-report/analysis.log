@@ -1,0 +1,217 @@
+Environment variables:
+  - =C:=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb
+  - ACLOCAL_PATH=C:\Program Files\Git\mingw64\share\aclocal;C:\Program Files\Git\usr\share\aclocal
+  - ALLUSERSPROFILE=C:\ProgramData
+  - APPDATA=C:\Users\tosh\AppData\Roaming
+  - COMMONPROGRAMFILES=C:\Program Files\Common Files
+  - COMPUTERNAME=TOSH-PC
+  - COMSPEC=C:\Windows\system32\cmd.exe
+  - CONFIG_SITE=C:/Program Files/Git/mingw64/etc/config.site
+  - CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+  - CommonProgramW6432=C:\Program Files\Common Files
+  - DISPLAY=needs-to-be-defined
+  - ERROR_CODE=0
+  - EXEPATH=C:\Program Files\Git
+  - FP_NO_HOST_CHECK=NO
+  - HOME=C:\Users\tosh
+  - HOMEDRIVE=C:
+  - HOMEPATH=\Users\tosh
+  - HOSTNAME=tosh-PC
+  - INFOPATH=C:\Program Files\Git\usr\local\info;C:\Program Files\Git\usr\share\info;C:\Program Files\Git\usr\info;C:\Program Files\Git\share\info
+  - JAVA_EXEC="C:\sonar-scanner-3.1.0.1141-windows\bin\..\jre\bin\java.exe"
+  - JAVA_HOME=C:\sonar-scanner-3.1.0.1141-windows\bin\..\jre
+  - LANG=es_ES.UTF-8
+  - LOCALAPPDATA=C:\Users\tosh\AppData\Local
+  - LOGONSERVER=\\TOSH-PC
+  - MANPATH=C:\Program Files\Git\mingw64\share\man;C:\Program Files\Git\usr\local\man;C:\Program Files\Git\usr\share\man;C:\Program Files\Git\usr\man;C:\Program Files\Git\share\man
+  - MINGW_CHOST=x86_64-w64-mingw32
+  - MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
+  - MINGW_PREFIX=C:/Program Files/Git/mingw64
+  - MSYSTEM=MINGW64
+  - MSYSTEM_CARCH=x86_64
+  - MSYSTEM_CHOST=x86_64-w64-mingw32
+  - MSYSTEM_PREFIX=C:/Program Files/Git/mingw64
+  - NUMBER_OF_PROCESSORS=8
+  - OLDPWD=C:/Users/tosh/Documents/NetBeansProjects
+  - OPENSSL_CONF=C:\Program Files\PostgreSQL\psqlODBC\etc\openssl.cnf
+  - ORIGINAL_PATH=C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tosh\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Microsoft SQL Server\110\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\PuTTY;C:\Program Files\nodejs;C:\Program Files (x86)\PuTTY;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\tosh\AppData\Roaming\Composer\vendor\bin;C:\Users\tosh\AppData\Local\GitHubDesktop\bin;C:\Users\tosh\AppData\Roaming\npm;C:\sonar-scanner-3.1.0.1141-windows\bin
+  - ORIGINAL_TEMP=C:/Users/tosh/AppData/Local/Temp
+  - ORIGINAL_TMP=C:/Users/tosh/AppData/Local/Temp
+  - OS=Windows_NT
+  - PATH=C:\Users\tosh\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tosh\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Microsoft SQL Server\110\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\PuTTY;C:\Program Files\nodejs;C:\Program Files (x86)\PuTTY;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\tosh\AppData\Roaming\Composer\vendor\bin;C:\Users\tosh\AppData\Local\GitHubDesktop\bin;C:\Users\tosh\AppData\Roaming\npm;C:\sonar-scanner-3.1.0.1141-windows\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  - PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+  - PKG_CONFIG_PATH=C:\Program Files\Git\mingw64\lib\pkgconfig;C:\Program Files\Git\mingw64\share\pkgconfig
+  - PLINK_PROTOCOL=ssh
+  - PROCESSOR_ARCHITECTURE=AMD64
+  - PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+  - PROCESSOR_LEVEL=6
+  - PROCESSOR_REVISION=2a07
+  - PROGRAMFILES=C:\Program Files
+  - PROJECT_HOME=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb
+  - PROMPT=$P$G
+  - PS1=\[\033]0;$TITLEPREFIX:${PWD//[^[:ascii:]]/?}\007\]\n\[\033[32m\]\u@\h \[\033[35m\]$MSYSTEM \[\033[33m\]\w\[\033[36m\]`__git_ps1`\[\033[0m\]\n$ 
+  - PSModulePath=C:\Windows\system32\WindowsPowerShell\v1.0\Modules\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\PowerShell\Modules\;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\PowerShell\Modules\
+  - PT5HOME=C:\Program Files (x86)\Cisco Packet Tracer 6.1.1sv
+  - PT6HOME=C:\Program Files (x86)\Cisco Packet Tracer 6.1.1sv
+  - PUBLIC=C:\Users\Public
+  - PWD=C:/Users/tosh/Documents/NetBeansProjects/TrabajosWeb
+  - ProgramData=C:\ProgramData
+  - ProgramFiles(x86)=C:\Program Files (x86)
+  - ProgramW6432=C:\Program Files
+  - SESSIONNAME=Console
+  - SHELL=C:\Program Files\Git\usr\bin\bash.exe
+  - SHLVL=1
+  - SONAR_SCANNER_HOME=C:\sonar-scanner-3.1.0.1141-windows\bin\..
+  - SSH_ASKPASS=C:/Program Files/Git/mingw64/libexec/git-core/git-gui--askpass
+  - SYSTEMDRIVE=C:
+  - SYSTEMROOT=C:\Windows
+  - TEMP=C:\Users\tosh\AppData\Local\Temp
+  - TERM=xterm
+  - TMP=C:\Users\tosh\AppData\Local\Temp
+  - TMPDIR=C:\Users\tosh\AppData\Local\Temp
+  - USERDOMAIN=tosh-PC
+  - USERNAME=tosh
+  - USERPROFILE=C:\Users\tosh
+  - VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+  - VS140COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
+  - WINDIR=C:\Windows
+  - _=C:/sonar-scanner-3.1.0.1141-windows/bin/sonar-scanner.bat
+  - scriptdir=C:\sonar-scanner-3.1.0.1141-windows\bin
+  - use_embedded_jre=true
+  - windows_tracing_flags=3
+  - windows_tracing_logfile=C:\BVTBin\Tests\installpackage\csilogfile.log
+System properties:
+  - awt.toolkit=sun.awt.windows.WToolkit
+  - file.encoding=Cp1252
+  - file.encoding.pkg=sun.io
+  - file.separator=\
+  - java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment
+  - java.awt.headless=true
+  - java.awt.printerjob=sun.awt.windows.WPrinterJob
+  - java.class.path=C:\sonar-scanner-3.1.0.1141-windows\bin\..\lib\sonar-scanner-cli-3.1.0.1141.jar
+  - java.class.version=52.0
+  - java.endorsed.dirs=C:\sonar-scanner-3.1.0.1141-windows\jre\lib\endorsed
+  - java.ext.dirs=C:\sonar-scanner-3.1.0.1141-windows\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
+  - java.home=C:\sonar-scanner-3.1.0.1141-windows\jre
+  - java.io.tmpdir=C:\Users\tosh\AppData\Local\Temp\
+  - java.library.path=C:\sonar-scanner-3.1.0.1141-windows\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Users\tosh\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tosh\bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Microsoft SQL Server\110\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn;C:\Program Files\Microsoft SQL Server\120\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\PuTTY;C:\Program Files\nodejs;C:\Program Files (x86)\PuTTY;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\tosh\AppData\Roaming\Composer\vendor\bin;C:\Users\tosh\AppData\Local\GitHubDesktop\bin;C:\Users\tosh\AppData\Roaming\npm;C:\sonar-scanner-3.1.0.1141-windows\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;.
+  - java.runtime.name=Java(TM) SE Runtime Environment
+  - java.runtime.version=1.8.0_121-b13
+  - java.specification.name=Java Platform API Specification
+  - java.specification.vendor=Oracle Corporation
+  - java.specification.version=1.8
+  - java.vendor=Oracle Corporation
+  - java.vendor.url=http://java.oracle.com/
+  - java.vendor.url.bug=http://bugreport.sun.com/bugreport/
+  - java.version=1.8.0_121
+  - java.vm.info=mixed mode
+  - java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+  - java.vm.specification.name=Java Virtual Machine Specification
+  - java.vm.specification.vendor=Oracle Corporation
+  - java.vm.specification.version=1.8
+  - java.vm.vendor=Oracle Corporation
+  - java.vm.version=25.121-b13
+  - line.separator=
+
+  - os.arch=amd64
+  - os.name=Windows 7
+  - os.version=6.1
+  - path.separator=;
+  - project.home=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb
+  - scanner.home=C:\sonar-scanner-3.1.0.1141-windows\bin\..
+  - sun.arch.data.model=64
+  - sun.boot.class.path=C:\sonar-scanner-3.1.0.1141-windows\jre\lib\resources.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\rt.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\sunrsasign.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\jsse.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\jce.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\charsets.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\lib\jfr.jar;C:\sonar-scanner-3.1.0.1141-windows\jre\classes
+  - sun.boot.library.path=C:\sonar-scanner-3.1.0.1141-windows\jre\bin
+  - sun.cpu.endian=little
+  - sun.cpu.isalist=amd64
+  - sun.desktop=windows
+  - sun.io.unicode.encoding=UnicodeLittle
+  - sun.java.command=org.sonarsource.scanner.cli.Main -X -Dsonar.projectKey=key-jsp -Dsonar.organization=tosh2-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=6a7026a1c191c2333e692ee0f396199900940d78
+  - sun.java.launcher=SUN_STANDARD
+  - sun.jnu.encoding=Cp1252
+  - sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+  - sun.os.patch.level=Service Pack 1
+  - user.country=ES
+  - user.dir=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb
+  - user.home=C:\Users\tosh
+  - user.language=es
+  - user.name=tosh
+  - user.script=
+  - user.timezone=America/Regina
+  - user.variant=
+SonarQube plugins:
+  - CVS 1.0 (scmcvs)
+  - Bitbucket Authentication for SonarQube 1.0 (authbitbucket)
+  - Branch 7.1.1.432 (branch)
+  - SonarQube :: Plugins :: SCM :: SVN 1.6.0.860 (scmsvn)
+  - Billing 7.1.1.432 (billing)
+  - SonarPLSQL 3.2.0.1753 (plsql)
+  - SonarC# 7.0.1.4822 (csharp)
+  - SonarJava 5.2.0.13398 (java)
+  - Web 2.5.0.476 (web)
+  - Flex 2.3 (flex)
+  - SonarXML 1.5.0.1023 (xml)
+  - SonarTS 1.6.0.2388 (typescript)
+  - SonarVB 5.0.1.374 (vbnet)
+  - SonarSwift 3.1.0.2067 (swift)
+  - GitHub 1.4.2.1027 (github)
+  - SonarCFamily 5.1.0.10083 (cpp)
+  - SonarPython 1.9.1.2080 (python)
+  - GitHub Authentication for SonarQube 1.3 (authgithub)
+  - Mercurial 1.1.1 (scmmercurial)
+  - Microsoft Authentication for SonarCloud 1.0.0.129 (authmicrosoft)
+  - SonarTSQL 1.2.0.2539 (tsql)
+  - SonarJS 4.1.0.6085 (javascript)
+  - License 3.2.0.1163 (license)
+  - Git 1.4.0.1037 (scmgit)
+  - HA 7.1.1.432 (ha)
+  - SonarPHP 2.12.1.3018 (php)
+  - Developer 7.1.1.432 (developer)
+  - SonarABAP 3.5.0.1080 (abap)
+  - SVG Badges 3.0.1 (status)
+Global properties:
+  - email.from=noreply@sonarcloud.io
+  - email.prefix=[SonarCloud]
+  - sonar.auth.bitbucket.enabled=true
+  - sonar.auth.github.allowUsersToSignUp=true
+  - sonar.auth.github.enabled=true
+  - sonar.auth.microsoft.enabled=true
+  - sonar.core.id=AWHW8ct9-T_TB3XqouNu
+  - sonar.core.serverBaseURL=https://sonarcloud.io
+  - sonar.core.startTime=2018-03-28T13:06:31+0200
+  - sonar.cpd.cross_project=false
+  - sonar.dbcleaner.daysBeforeDeletingClosedIssues=730
+  - sonar.dbcleaner.weeksBeforeDeletingAllSnapshots=480
+  - sonar.dbcleaner.weeksBeforeKeepingOnlyOneSnapshotByMonth=4
+  - sonar.dbcleaner.weeksBeforeKeepingOnlyOneSnapshotByWeek=1
+  - sonar.java.collectAnalysisErrors=true
+  - sonar.leak.period=30
+  - sonar.lf.aboutText=<div class="boxed-group" style="border: none; border-radius: 3px;">
+  <div class="boxed-group-inner clearfix" style="padding: 30px; border-radius: 3px; border: #e6e6e6 1px solid; background: #f3f3f3;">
+    <div style="overflow: hidden; line-height: 1.5; font-size: 16px;">
+      <p>
+Analyze your open source and private projects on SonarCloud.
+Select your <a href="https://about.sonarcloud.io">plan</a> and start improving. 
+      </p>
+    </div>
+  </div>
+</div>
+  - sonar.lf.enableGravatar=true
+  - sonar.lf.logoUrl=https://about.sonarcloud.io/images/SonarCloud-white-210px.png
+  - sonar.lf.logoWidthPx=105
+  - sonar.organizations.anyoneCanCreate=true
+  - sonar.organizations.createPersonalOrg=true
+  - sonar.plsql.file.suffixes=sql,tab,pkb
+  - sonar.tsql.file.suffixes=.tsql
+Settings for module: key-jsp
+  - sonar.host.url=https://sonarcloud.io
+  - sonar.login=******
+  - sonar.organization=tosh2-github
+  - sonar.projectBaseDir=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb
+  - sonar.projectKey=key-jsp
+  - sonar.scanner.app=ScannerCli
+  - sonar.scanner.appVersion=3.1.0.1141
+  - sonar.sourceEncoding=windows-1252
+  - sonar.sources=.
+  - sonar.verbose=true
+  - sonar.working.directory=C:\Users\tosh\Documents\NetBeansProjects\TrabajosWeb\.scannerwork
