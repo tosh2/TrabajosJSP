@@ -10,6 +10,16 @@
 <%@page import ="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
+<%
+    //si el usuario no ha iniciado 
+    HttpSession sesionLogin = request.getSession();
+    if (sesionLogin.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <%
     HttpSession sesionAux = request.getSession();
     Modelo_Usuario usuarioModel = new Modelo_Usuario();
@@ -135,7 +145,7 @@
                         </div>
 
                         <div class="form-group">
-                            <img src="${pageContext.request.contextPath}/images/<%=sesion.getAttribute("usuario")%>" style="width:200px;height:200px;">
+                            <img src="${pageContext.request.contextPath}/images/<%=sesionLogin.getAttribute("usuario")%>" style="width:200px;height:200px;">
                         </div>            
 
 

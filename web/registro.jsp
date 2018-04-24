@@ -12,21 +12,7 @@
         Utilizado con: Ctrl_Registro
         "nivel", y "nombre", son atributos enviados desde: Ctrl_Registro
      */
-    HttpSession sesion = request.getSession();
-    int tipo = 0;
-    /*  1 = Ofertador ; 2 = Ofertante   */
-    if (request.getAttribute("tipo") != null) {
-        tipo = (Integer) request.getAttribute("tipo");
-        System.out.println("hola");
-//        if(tipo == 1){
-        sesion.setAttribute("usuario", request.getAttribute("usuario"));
-        sesion.setAttribute("tipo", tipo);
-        response.sendRedirect("general.jsp");
-//        }
-    } else if (request.getAttribute("error") != null) {
-        sesion.setAttribute("error", request.getAttribute("error"));
-        response.sendRedirect("registro.jsp");
-    }
+
 %>
 
 <!DOCTYPE html>
@@ -40,176 +26,190 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     </head>
     <body>
-        <div class="jumbotron" style="padding-top: 45px">
-            <div align="right" style="padding-right: 20px;">
-                <a href="index.jsp" style="padding:10px;border-radius:5px;background: #337ab7;color:white;">Inicio</a>
-                <a href="login.jsp" style="padding:10px 20px;border-radius:5px;background: #337ab7;color:white;">Log-In</a>
-                <hr>
+
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.jsp"><h1>Bolsa de Empleo</h1></a>
+            <div align="right">
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="registro.jsp">Registrarse</a>
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="login.jsp">Iniciar Sesión</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="signup-form-container">
+                        <form name="form1" autocomplete="off" action="Ctrl_Registro" enctype="MULTIPART/FORM-DATA" method="POST"> 
+                            <div class="form-header">
+                                <h3 class="form-title"><i class="fa fa-user"></i> Registrarme</h3>
+                                <div class="pull-right">
+                                    <h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>
+                                </div>
+                            </div>
+                            <div class="form-body">                      
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                        <input name="txt_nombre" type="text" required class="form-control" placeholder="Nombre">
+                                    </div>
+                                    <span class="help-block" id="error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                        <input name="txt_apellido" required type="text" class="form-control" placeholder="Apellido">
+                                    </div>
+                                    <span class="help-block" id="error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                                        <input name="txt_edad" type="number" min="0" max="125" required class="form-control" placeholder="Edad" >
+                                    </div>
+                                    <span class="help-block" id="error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                                        <input name="txt_correo" type="email" required class="form-control" placeholder="Correo">
+                                    </div> 
+                                    <span class="help-block" id="error"></span>                     
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <fieldset class="form-group">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="sexo" value="1" checked>
+                                                        Hombre
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="sexo" value="0">
+                                                        Mujer
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <fieldset class="form-group">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="tipo" value="1" checked>
+                                                        Empleador
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="tipo" value="2">
+                                                        Empleado
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>                                
+                            <div class="row">
+
+                                <div class="form-group col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                        <input name="txt_password" id="password" required type="password" class="form-control" placeholder="Contraseña">
+                                    </div>  
+                                    <span class="help-block" id="error"></span>                    
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                        <input name="txt_password_conf" type="password" class="form-control" placeholder="Confirmar Contraseña">
+                                    </div>  
+                                    <span class="help-block" id="error"></span>                    
+                                </div>
+
+                            </div>
+                            <input type="file" name="photo" />
+                            <br>
+                            <br>
+                            <div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Politicas de privacidad
+                                </button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <fieldset class="form-group">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="politica" value="1" >
+                                                    Acepto Las Politicas de Privacidad
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="politica" value="2" checked>
+                                                    No Acepto las Politicas de Privacidad
+                                                </label>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <%                        Object error = request.getAttribute("error");
+                                if (error != null) {
+                            %>
+                            <label class="text-danger"><%=error%></label>
+                            <%}%>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary " class="form-control" name="btn_registrar">
+                                    Registrar
+                                </button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+
+        </div>
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Politicas de Privacidad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Estas son las politicas de privacidad .i. 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container">
-            <div class="signup-form-container">
-                <form name="form1" autocomplete="off" action="Ctrl_Registro" enctype="MULTIPART/FORM-DATA" method="POST"> 
-                    <div class="form-header">
-                        <h3 class="form-title"><i class="fa fa-user"></i> Registrarme</h3>
-                        <div class="pull-right">
-                            <h3 class="form-title"><span class="glyphicon glyphicon-pencil"></span></h3>
-                        </div>
-                    </div>
-                    <div class="form-body">                      
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input name="txt_nombre" type="text" class="form-control" placeholder="Nombre">
-                            </div>
-                            <span class="help-block" id="error"></span>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input name="txt_apellido" type="text" class="form-control" placeholder="Apellido">
-                            </div>
-                            <span class="help-block" id="error"></span>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-                                <input name="txt_edad" type="text" class="form-control" placeholder="Edad" onkeypress="return soloNumeros(event)">
-                            </div>
-                            <span class="help-block" id="error"></span>
-                        </div>
-                        <div class="form-group">
-                            <fieldset class="form-group">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="sexo" value="1" checked>
-                                        Hombre
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="sexo" value="0">
-                                        Mujer
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="form-group">
-                            <fieldset class="form-group">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="tipo" value="1" checked>
-                                        Empleador
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="tipo" value="2">
-                                        Empleado
-                                    </label>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                                <input name="txt_correo" type="text" class="form-control" placeholder="Correo">
-                            </div> 
-                            <span class="help-block" id="error"></span>                     
-                        </div>
-                    </div>                                
-                    <div class="row">
 
-                        <div class="form-group col-lg-6">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input name="txt_password" id="password" type="password" class="form-control" placeholder="Contraseña">
-                            </div>  
-                            <span class="help-block" id="error"></span>                    
-                        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-                        <div class="form-group col-lg-6">
-                            <div class="input-group">
-                                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                                <input name="txt_password_conf" type="password" class="form-control" placeholder="Confirmar Contraseña">
-                            </div>  
-                            <span class="help-block" id="error"></span>                    
-                        </div>
 
-                    </div>
-                    <input type="file" name="photo" />
-                    <br>
-                    <br>
-                    <div>
-                        <input type="text" name="txt_politica" value="acepto las politicas de privacidad" readonly="readonly" style="
-                               width: 240px;
-                               border:  none;
-                               ">
-                    </div>
-                    <div class="form-group">
-                        <fieldset class="form-group">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="politica" value="1" checked>
-                                    Si
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="politica" value="2">
-                                    No
-                                </label>
-                            </div>
-                        </fieldset>
-                    </div>
-            </div>
-            <a href="javascript:void(0);" onclick="window.open('http://localhost:8083/TrabajosJSP/login.jsp', 'popup', 'top=100, left=200, width=853, height=480, toolbar=NO, resizable=NO, Location=NO, Menubar=NO,  Titlebar=No, Status=NO')" rel="nofollow">politicas de privacidad</a>
-            <br>
-            <br>
-            <div class="form-footer">
-                <button type="submit" style="padding:5px 15px;border-radius:5px;background: #337ab7;color:white;" name="btn_registrar" onClick="return campoVacio()">
-                    <span class="glyphicon glyphicon-log-in"></span> Registrar
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<script>
-    function soloNumeros(e) {
-        key = e.keyCode || e.which;
-        tecla = String.fromCharCode(key).toLowerCase();
-        numeros = "0123456789";
-        especiales = [8, 37, 39, 46];
-        tecla_especial = false;
-        for (var i in especiales) {
-            if (key == especiales[i]) {
-                tecla_especial = true;
-                break;
-            }
-        }
-        if (numeros.indexOf(tecla) == -1 && !tecla_especial) {
-            return false;
-        }
-    }
-    function campoVacio() {
-        var nombre = document.form1.txt_nombre.value;
-        var apellido = document.form1.txt_apellido.value;
-        var edad = document.form1.txt_edad.value;
-        var correo = document.form1.txt_correo.value;
-        var password = document.form1.txt_password.value;
-        var password2 = document.form1.txt_password_conf.value;
-        var correcto = true;
-        if (nombre == "" || apellido == "" || edad == "" || correo == "" || password == "" || password2 == "") {
-            alert('falta llenar campos');
-            correcto = false;
-        } else {
-            if (password != password2) {
-                alert('las contrase;as no coinciden');
-                correcto = false;
-            }
-        }
-        return correcto;
-    }
-</script>
-</body>
+    </body>
 </html>

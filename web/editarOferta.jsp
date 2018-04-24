@@ -4,6 +4,10 @@
     Author     : tosh
 --%>
 
+<%@page import="Classes.Puesto"%>
+<%@page import="Classes.Puesto"%>
+<%@page import="Classes.Categoria"%>
+<%@page import="Modelos.Modelo_Oferta"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="Classes.Usuario"%>
 <%@page import="Classes.Usuario"%>
@@ -13,7 +17,14 @@
 <%@page session="true"%>
 
 
-
+<%
+    //si el usuario no ha iniciado 
+    HttpSession sesionLogin = request.getSession();
+    if (sesionLogin.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -45,7 +56,7 @@
                 <div class="col-md-6">
                     <form action="Ctrl_Oferta" method="POST"> 
 
-
+                        <input class="form-control" type="hidden"  name="txt_id" value="<%= oferta.getOferta()%>">
                         Titulo: <br>
                         <input class="form-control" type="text" name="txt_titulo" value="<%= oferta.getTitulo()%>">
                         <br>
@@ -101,20 +112,47 @@
                         </div>
                         <br>
                         Categoria :<br>
-                        <input class="form-control" type="text" name="txt_categoria" value="<%= oferta.getCategoria()%>">
+                        <select name="txt_categoria" class="form-control" >
+                            <%                                            Modelo_Oferta ofertasModel1 = new Modelo_Oferta();
+                                List<Categoria> listaCategorias = ofertasModel1.obtenerCategorias();
+                                Iterator<Categoria> it1 = listaCategorias.iterator();
+                                Categoria ca = null;
+
+                                while (it1.hasNext()) {
+                                    ca = it1.next();
+                            %>
+                            <option value="<%= ca.getCategoria()%>"><!--<%= ca.getCategoria()%> ---> <%= ca.getNombre()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
                         <br>
                         Puesto :<br>
-                        <input class="form-control" type="text" name="txt_puesto" value="<%= oferta.getPuesto()%>">
+                        <select name="txt_puesto" class="form-control"  >
+                            <%
+                                Modelo_Oferta ofertasModel2 = new Modelo_Oferta();
+                                List<Puesto> listaPuestos = ofertasModel2.obtenerPuestos();
+                                Iterator<Puesto> it2 = listaPuestos.iterator();
+                                Puesto pu = null;
+
+                                while (it2.hasNext()) {
+                                    pu = it2.next();
+                            %>
+                             <option value="<%= pu.getPuesto()%>"><!--<%= pu.getPuesto()%> ---> <%= pu.getNombre()%></option>
+                            <%
+                                }
+                            %>
+                        </select>
                         <br>
 
-                        <br>
-                        <br>
-                        <a href="general.jsp" style="padding:10px;border-radius:5px;background: #337ab7;color:white;">Regresar</a>
-                        <br>
+                        <div class="form-group">
+                            <button type="submit" name="btn_actualizar" class="form-control btn btn-primary">Actualizar</button>
+                        </div>
                     </form>
                 </div>        
             </section>          
         </div> <!-- /container -->
+
 
 
         <!-- Bootstrap core JavaScript

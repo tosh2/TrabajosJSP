@@ -19,7 +19,14 @@
 <%@page session="true"%>
 
 
-
+<%
+    //si el usuario no ha iniciado 
+    HttpSession sesionLogin = request.getSession();
+    if (sesionLogin.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -39,7 +46,7 @@
 
             <%                     Oferta oferta = new Modelos.Modelo_Oferta().obtenerOferta((String) request.getParameter("idOferta"));
                 Modelo_Usuario modeloUsuario = new Modelo_Usuario();
-                Usuario usuarioLog = modeloUsuario.obtenerInformacionUsuario((String) sesion.getAttribute("usuario"));
+                Usuario usuarioLog = modeloUsuario.obtenerInformacionUsuario((String) sesionLogin.getAttribute("usuario"));
                 if (request.getParameter("idOferta") != null) {
             %>
             <h2 style="text-align: center">Oferta # <%=    oferta.getOferta()%></h2>
@@ -114,95 +121,96 @@
 
                 </form>
             </div>
-            <h2 style="text-align: center">Postulantes</h2>
-            <hr>
-            <form action="Ctrl_Oferta" method="POST" >       
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Edad</th>
-                            <th scope="col">Sexo</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <%
-                        List<Usuario> usuarios = new Modelos.Modelo_Oferta().postulantes(oferta.getOferta());
-                        Iterator<Usuario> usuariosIt = usuarios.iterator();
-                        Usuario usuario = null;
-                        while (usuariosIt.hasNext()) {
-                            usuario = usuariosIt.next();
-                    %>
-
-                    <tr>
-                        <td><%=  usuario.getNombre()%>
-                        </td>
-                        <td><%=  usuario.getApellido()%>
-                        </td>
-                        <td><%=  usuario.getCorreo()%>
-                        </td>
-                        <td><%=  usuario.getEdad()%>
-                        </td>
-                        <td><%=  usuario.getSexo()%>
-                        </td>
+            <div class="col-md-12">
+                <h2 style="text-align: center">Postulantes</h2>
+                <hr>
+                <form action="Ctrl_Oferta" method="POST" >       
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
                         <%
-
-                            Modelo_Oferta ofertaModel = new Modelo_Oferta();
-                            Boolean isOfertaUsuario = ofertaModel.isOfertaUsuario(oferta.getOferta(), (String) sesion.getAttribute("usuario"));
-                            Modelo_Postulacion modeloPost = new Modelo_Postulacion();
-                            Postulacion postulacion = modeloPost.getPostulacion(usuario.getUsuario(), oferta.getOferta());
+                            List<Usuario> usuarios = new Modelos.Modelo_Oferta().postulantes(oferta.getOferta());
+                            Iterator<Usuario> usuariosIt = usuarios.iterator();
+                            Usuario usuario = null;
+                            while (usuariosIt.hasNext()) {
+                                usuario = usuariosIt.next();
                         %>
-                        <td >
+
+                        <tr>
+                            <td><%=  usuario.getNombre()%>
+                            </td>
+                            <td><%=  usuario.getApellido()%>
+                            </td>
+                            <td><%=  usuario.getCorreo()%>
+                            </td>
+                            <td><%=  usuario.getEdad()%>
+                            </td>
+                            <td><%=  usuario.getSexo()%>
+                            </td>
+                            <%
+
+                                Modelo_Oferta ofertaModel = new Modelo_Oferta();
+                                int isOfertaUsuario = ofertaModel.isOfertaUsuario(oferta.getOferta(), (String) sesionLogin.getAttribute("usuario"));
+                                Modelo_Postulacion modeloPost = new Modelo_Postulacion();
+                                Postulacion postulacion = modeloPost.getPostulacion(usuario.getUsuario(), oferta.getOferta());
+                            %>
+                            <td >
+                                <%if (postulacion != null) {%> 
+                                <% if (postulacion.getEstado().equalsIgnoreCase("0")) {%>
+                        <spam style="color: darkorange">Pendiente</spam>
+                            <%} else if (postulacion.getEstado().equalsIgnoreCase("1")) {%>
+                        <spam style="color: green">Aceptada</spam>
+                            <%} else {%>
+                        <spam style="color: red">Rechazada</spam>
+                            <%}%>
+                            <%}%>
+                        </td>
+
+                        <td>
                             <%if (postulacion != null) {%> 
-                            <% if (postulacion.getEstado().equalsIgnoreCase("0")) {%>
-                    <spam style="color: darkorange">Pendiente</spam>
-                        <%} else if (postulacion.getEstado().equalsIgnoreCase("1")) {%>
-                    <spam style="color: green">Aceptada</spam>
-                        <%} else {%>
-                    <spam style="color: red">Rechazada</spam>
-                        <%}%>
-                        <%}%>
-                    </td>
+                            <%if (isOfertaUsuario == 1) {%> 
 
-                    <td>
-                        <%if (postulacion != null) {%> 
-                        <%if (isOfertaUsuario) {%> 
+                            <form action="Ctrl_Oferta" method="POST">
+                                <input type="hidden" name="idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
+                                <input type="hidden" name="idPostulante" value="<%=usuario.getUsuario()%>"  readonly="true">
+                                <input type="hidden" name="idUsuario" value="<%=usuarioLog.getUsuario()%>"  readonly="true">
 
-                        <form action="Ctrl_Oferta" method="POST">
-                            <input type="hidden" name="idOferta" value="<%=oferta.getOferta()%>"  readonly="true">
-                            <input type="hidden" name="idPostulante" value="<%=usuario.getUsuario()%>"  readonly="true">
-                            <input type="hidden" name="idUsuario" value="<%=usuarioLog.getUsuario()%>"  readonly="true">
+                                <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("2")) {%>
+                                <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar">
 
-                            <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("2")) {%>
-                            <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar">
+                                <% } else { %>
+                                <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar" disabled>
+                                <%}%>
 
-                            <% } else { %>
-                            <input type="submit" name="btn_aceptar" class="btn btn-success" value="Aceptar" disabled>
+
+                                <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("1")) {%>
+
+                                <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar"> 
+                                <% } else { %>
+                                <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar" disabled> 
+                                <%}%>
+
+                                <%}%>
+                            </form>
                             <%}%>
+                        </td>
 
-
-                            <% if (postulacion.getEstado().equalsIgnoreCase("0") || postulacion.getEstado().equalsIgnoreCase("1")) {%>
-
-                            <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar"> 
-                            <% } else { %>
-                            <input type="submit" name="btn_rechazar" class="btn btn-danger" value="Rechazar" disabled> 
-                            <%}%>
-
-                            <%}%>
-                        </form>
-                        <%}%>
-                    </td>
-
-                    </tr>    
-                    <%
-                        }
-                    %>
-                </table>
-            </form>
-
+                        </tr>    
+                        <%
+                            }
+                        %>
+                    </table>
+                </form>
+            </div>
 
         </div> <!-- /container -->
 

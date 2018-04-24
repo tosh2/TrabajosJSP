@@ -21,11 +21,20 @@
 
 <!DOCTYPE html>
 <%
+    //si el usuario no ha iniciado 
+    HttpSession sesionLogin = request.getSession();
+    if (sesionLogin.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
     String dis = null;
     if (request.getParameter("cbodis") != null) {
         dis = request.getParameter("cbodis");
     }
 %>
+
+
 
 
 
@@ -101,12 +110,15 @@
                     </form>
                 </div>
 
+                <% if (session.getAttribute("tipo").toString().equalsIgnoreCase("1")) {%>
                 <div class="form-control">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Crear Oferta
                     </button>  
+
                 </div>
 
+                <%}%>
 
                 <table class="table table-bordered table-hover">
                     <thead class="thead-dark">
@@ -198,18 +210,18 @@
                         <td>
 
                             <%
-
-                                Boolean isOfertaUsuario = ofertasModel.isOfertaUsuario(of.getOferta(), (String) sesion.getAttribute("usuario"));
+                                int isOfertaUsuario = ofertasModel.isOfertaUsuario(of.getOferta(), (String) sesionLogin.getAttribute("usuario"));
                             %>
                             <form method="POST" action="Ctrl_Oferta"  >
-                                <%if (isOfertaUsuario) {%> 
+
+                                <%if (isOfertaUsuario == 1) {%> 
                                 <a href="verOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-primary">Ver</a>
                                 <input type="hidden" value="<%=of.getOferta()%>" name="txt_id" >
                                 <input type="submit" name="btn_eliminar" class="btn btn-danger" value="Eliminar">
 
 
                                 <%
-                               } else {%>
+                                } else {%>
 
 
                                 <a href="verOferta.jsp?idOferta=<%=of.getOferta()%>" class="btn btn-primary">Ver</a>
@@ -256,16 +268,20 @@
                                     <textarea class="form-control"  name="txt_descripcion" rows="3"></textarea>
                                     <br>
                                     Numero de Plazas:<br>
-                                    <input type="text" class="form-control" name="txt_numeroPlazas">
+                                    <input type="number" class="form-control" name="txt_numeroPlazas">
                                     <br>
-                                    Nivel de Experiencia:<br>
-                                    <input type="text" class="form-control" name="txt_nivelExperiencia">
+                                    Nivel de Experiencia (0-10):<br>
+                                    <input type="number" editable="false" min="0" max="10" class="form-control" name="txt_nivelExperiencia">
                                     <br>
                                     Salario :<br>
-                                    <input type="text" class="form-control" name="txt_salario">
+                                    <input type="number" class="form-control" name="txt_salario">
                                     <br>
                                     Vehiculo :<br>
-                                    <input type="text" class="form-control" name="txt_vehiculo">
+                                    <select name="txt_vehiculo" class="form-control">
+                                        <option value="1" selected>Si</option> 
+                                        <option value="0">No</option>                                
+                                    </select>
+
                                     <br>
                                     Categoria
                                     <select class="form-control" name="categoria_seleccionada">
@@ -318,17 +334,14 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="ModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ModalAlerta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Editar Oferta</h5>
+                                <h6 class="modal-title" id="exampleModalLabel">Solamente te puedes postular una vez en una oferta</h6>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                            </div>
-                            <div class="modal-body">
-
                             </div>
 
                         </div>
@@ -338,13 +351,29 @@
         </div> <!-- /container -->
 
 
+
+
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+        <%
+            Object error = request.getAttribute("error");
+            if (error != null) {%>
         <script>
+            //$('#ModalEditar').modal('toggle');
+            $('#ModalAlerta').modal('show');
+
+        </script>
+
+        <%}%>
+
+        <script>
+
+
             $('#myModal').on('shown.bs.modal', function () {
                 $('#myInput').trigger('focus')
             })
