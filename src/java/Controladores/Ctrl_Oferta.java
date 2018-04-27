@@ -76,15 +76,15 @@ public class Ctrl_Oferta extends HttpServlet {
             } else if (request.getParameter("btn_seleccionar") != null) {
                 String ofertaseleccionada = request.getParameter("lst_oferta_seleccionada");
                 rd = request.getRequestDispatcher("oferta.jsp?idOferta=" + ofertaseleccionada);
-            } else if (request.getParameter("btn_guardar") != null) {
+            } else if (request.getParameter("btn_actualizar") != null) {
                 titulo = request.getParameter("txt_titulo");
                 descripcion = request.getParameter("txt_descripcion");
                 numeroPlazas = request.getParameter("txt_numeroPlazas");
                 nivelExperiencia = request.getParameter("txt_nivelExperiencia");
                 salario = request.getParameter("txt_salario");
                 vehiculo = request.getParameter("txt_vehiculo");
-                categoria = request.getParameter("categoria_seleccionada");
-                puesto = request.getParameter("puesto_seleccionado");
+                categoria = request.getParameter("txt_categoria");
+                puesto = request.getParameter("txt_puesto");
 
                 String idOferta = request.getParameter("txt_id");
 
@@ -92,6 +92,11 @@ public class Ctrl_Oferta extends HttpServlet {
                 resultado = ofertaModel.actualizarOferta(idOferta, titulo, descripcion, numeroPlazas,
                         nivelExperiencia, salario, vehiculo, categoria, puesto);
                 System.out.println("Hola mundo");
+                if (resultado == 1) {
+                    request.setAttribute("mensaje", "Oferta Actualizada");
+                } else {
+                    request.setAttribute("mensaje", "Ocurrio un error, la oferta no se actualizo");
+                }
                 rd = request.getRequestDispatcher("oferta.jsp");
             } else if (request.getParameter("btn_eliminar") != null) {
                 String idOferta = request.getParameter("txt_id");
@@ -115,7 +120,10 @@ public class Ctrl_Oferta extends HttpServlet {
                 rd = request.getRequestDispatcher("verOferta.jsp");
             } else if (request.getParameter("btn_postularse") != null) {
                 String idOferta = request.getParameter("btn_postularse");
-                ofertaModel.postularse(usuario, idOferta);
+                int estado = ofertaModel.postularse(usuario, idOferta);
+                if (estado == 0) {
+                    request.setAttribute("error", "Solamente te puedes postular una vez en una oferta");
+                }
                 rd = request.getRequestDispatcher("general.jsp");
             } else if (request.getParameter("btn_aceptar") != null) {
                 String idPostulante = request.getParameter("idPostulante");
@@ -131,6 +139,8 @@ public class Ctrl_Oferta extends HttpServlet {
                 Modelo_Postulacion modeloPost = new Modelo_Postulacion();
                 modeloPost.rechazarPostulante(idPostulante, idUsuario, idOferta);
                 rd = request.getRequestDispatcher("verOferta.jsp?idOferta=" + idOferta);
+            } else {
+                rd = request.getRequestDispatcher("general.jsp");
             }
 
             rd.forward(request, response);

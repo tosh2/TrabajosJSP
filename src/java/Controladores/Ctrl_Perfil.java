@@ -60,6 +60,8 @@ public class Ctrl_Perfil extends HttpServlet {
                 resultado = regModel.actualizarUsuario(nombre, apellido, correo, password, edad, sexo, tipo_usuario);
 
                 rd = request.getRequestDispatcher("perfil.jsp");
+            } else {
+                rd = request.getRequestDispatcher("perfil.jsp");
             }
 
             rd.forward(request, response);

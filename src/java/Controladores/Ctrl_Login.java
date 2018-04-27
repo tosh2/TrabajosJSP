@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Modelos.Modelo_Ingreso;  //  Importamos modelo de acceso (Login)
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -55,18 +56,25 @@ public class Ctrl_Login extends HttpServlet {
                 password = request.getParameter("txt_password");
                 //nivel = acc.validar(nombre, contra);
                 tipo = log.validarAcceso(usuario, password);
+                HttpSession sesion = request.getSession();
                 if (tipo == 0) {
                     //datos incorrectos
+                    request.setAttribute("error", "Correo/contraseña invalida");
+                    rd = request.getRequestDispatcher("login.jsp");
+                } else if (tipo > 0) {
+                    sesion.setAttribute("usuario", usuario);
+                    sesion.setAttribute("tipo", tipo);
 
-                } else if (tipo == 1) {
-                    request.setAttribute("usuario", usuario);
-                    request.setAttribute("tipo", tipo);
-                } else {
-                    request.setAttribute("usuario", usuario);
-                    request.setAttribute("tipo", tipo);
+                    rd = request.getRequestDispatcher("general.jsp");
                 }
-                rd = request.getRequestDispatcher("login.jsp");
 
+            } else if (request.getParameter("btn_cerrar") != null) {
+                HttpSession sesion = request.getSession();
+                sesion.setAttribute("usuario", null);
+                sesion.setAttribute("tipo", null);
+                rd = request.getRequestDispatcher("login.jsp");
+            } else {
+                rd = request.getRequestDispatcher("general.jsp");
             }
 
             rd.forward(request, response);  //direccionamos al index.jsp

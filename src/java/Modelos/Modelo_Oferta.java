@@ -544,12 +544,12 @@ public class Modelo_Oferta {
         return rquery;
     }
 
-    public boolean isOfertaUsuario(String codigo, String usuario) {
+    public int isOfertaUsuario(String codigo, String usuario) {
 
         try {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(), db.getUserdb(), db.getPassdb());
-            sql = "SELECT * FROM OfertaUsuario WHERE oferta_oferta='" + codigo + "'  && usuario_usuario=(select usuario from usuario where correo='" + usuario + "');";
+            sql = "SELECT * FROM ofertaUsuario WHERE oferta_oferta='" + codigo + "'  && usuario_usuario=(select usuario from usuario where correo='" + usuario + "');";
             pst = conn.prepareStatement(sql);
 
             rs = pst.executeQuery();
@@ -557,13 +557,13 @@ public class Modelo_Oferta {
             while (rs.next()) {
                 conn.close();
                 rs.close();
-                return true;
+                return 1;
             }
             conn.close();
             rs.close();
-            return false;
+            return 0;
         } catch (SQLException | ClassNotFoundException e) {
-            return false;
+            return 3;
         }
     }
 

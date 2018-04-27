@@ -5,6 +5,17 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+<%
+    //si el usuario no ha iniciado 
+    HttpSession sesionLogin = request.getSession();
+    if (sesionLogin.getAttribute("usuario") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,9 +29,9 @@
     <body>
 
         <%@ include file="navBar.jsp" %>
-        <div class="contenedor">
+        <div class="contenedor col-md-12" >
             <section class="content" >
-                <h1>Blog's</h1>
+                <h2 style="text-align: center">Blog's</h2>
                 <div class="box box-default">
                     <form action="" method="POST">
                         <table>
