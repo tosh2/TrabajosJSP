@@ -136,3 +136,14 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+DROP PROCEDURE IF EXISTS crear_usuario1;
+DELIMITER //
+CREATE  PROCEDURE  crear_usuario1
+(IN usuario CHAR(100), IN nombre CHAR(100), IN apellido CHAR(100), IN correo CHAR(100), IN passwo CHAR(100), IN edad CHAR(100), IN sexo CHAR(100), IN tipo CHAR(100), IN foto mediumblob)
+BEGIN
+  INSERT INTO usuario (nombre, apellido, correo, password, edad, sexo, tipo,foto)  
+  VALUES (nombre, apellido, correo, passwo, edad, sexo, tipo, foto);
+END //
+DELIMITER ;

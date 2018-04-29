@@ -6,6 +6,7 @@
 package Modelos;
 
 import Classes.Usuario;
+import com.mysql.jdbc.CallableStatement;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -24,6 +25,7 @@ public class Modelo_Usuario {
     Modelo_ConexionDb db = new Modelo_ConexionDb();
     String sql = "";
     Connection conn;
+    CallableStatement sql1 = null;
     PreparedStatement pst;
     ResultSet rs;
 
@@ -39,14 +41,26 @@ public class Modelo_Usuario {
             Class.forName(db.getDriver());  //Crea Conexion con DB
             conn = DriverManager.getConnection(db.getUrl(), db.getUserdb(), db.getPassdb());
 
-            sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo,foto)"
-                    + " VALUES (NULL,'" + nombre + "','" + apellido + "','" + correo + "','" + password + "','" + edad + "','" + sexo + "','" + tipo_usuario + "',?);";
-            pst = conn.prepareStatement(sql);
-            pst.setBlob(1, foto);
-            rquery = pst.executeUpdate();
+            /*sql = "INSERT INTO usuario (usuario, nombre, apellido, correo, password, edad, sexo, tipo,foto)"
+                    + " VALUES (NULL,'" + nombre + "','" + apellido + "','" + correo + "','" + password + "','" + edad + "','" + sexo + "','" + tipo_usuario + "',?);";*/
+            
+            sql1 =   (CallableStatement) conn.prepareCall("{CALL crear_usuario1(NULL,'" + nombre + "','" + apellido + "','" + correo + "','" + password + "','" + edad + "','" + sexo + "','" + tipo_usuario + "',?)}");
+            /*sql1 = conn.prepareCall("{call crear_usuario1(?,?,?,?,?,?,?,?,?)}");
+			stmt.setInt(1, id);
+			stmt.setString(2, name);
+			stmt.setString(3, role);
+			stmt.setString(4, city);
+			stmt.setString(5, country);
+            */
+            
+            sql1.setBlob(1, foto);
+             //pst.setBlob(1, foto);
+            rquery= sql1.executeUpdate();
+            
+            
             conn.close();
             System.out.println("Valor query " + rquery);
-            return rquery;
+            return 1;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.toString());
         }

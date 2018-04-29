@@ -11,7 +11,7 @@ public class Modelo_ConexionDb {
     private String url;
     private String driver;
     private final String userdb = "root";
-    private final String passdb = "analisis2";
+    private final String passdb = "7625";
     private final String port = ":3306";
 
     public Modelo_ConexionDb() {
